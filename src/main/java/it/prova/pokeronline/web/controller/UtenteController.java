@@ -127,5 +127,43 @@ public class UtenteController {
 		model.addAttribute("show_utente_attr", utenteService.caricaSingoloUtente(idUtente));
 		return "utente/show";
 	}
+	
+	@PostMapping("/resetPassword")
+	public String resetPassword(@RequestParam(name = "idUtenteForResetPassword", required = true) Long idUtente,
+			Model model, RedirectAttributes redirectAttrs, HttpServletRequest request) {
+		
+		Utente utente = utenteService.caricaSingoloUtente(idUtente);
+		utente.setPassword("Password@1");
+		utenteService.aggiorna(utente);
+
+		redirectAttrs.addFlashAttribute("successMessage", "Operazione eseguita correttamente");
+		return "redirect:/utente";
+	}
+
+	@GetMapping("/cambioPassword")
+	public String cambioPassword() {
+		return "utente/resetpassword";
+	}
+	
+	@PostMapping("/saveCambioPassword")
+	public String saveCambioPassword(HttpServletRequest request, RedirectAttributes redirectAttrs) {
+
+		String passwordVecchia = request.getParameter("vecchiaPassword");
+		String passwordNuova = request.getParameter("nuovaPassword");
+		String passwordRep = request.getParameter("nuovaPasswordRep");
+		String user = request.getUserPrincipal().getName();
+
+		switch (utenteService.cambioPassword(passwordVecchia, passwordNuova, passwordRep, user)) {
+		case -1:
+			redirectAttrs.addFlashAttribute("errorMessage", "La password inserita non corrisponde a quella vecchia");
+			return "redirect:/utente/resetpassword";
+		case -2:
+			redirectAttrs.addFlashAttribute("errorMessage", "Le password non coincidono");
+			return "redirect:/utente/resetpassword";
+		}
+
+		return "redirect:/logout";
+	}
+
 
 }

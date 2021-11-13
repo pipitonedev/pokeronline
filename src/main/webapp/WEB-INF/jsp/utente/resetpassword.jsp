@@ -52,8 +52,8 @@
 									<input type="password" name="nuovaPassword" id="nuovaPassword" class="form-control" placeholder="Inserire nuova password" required>
 								</div>
 								<div class="col-md-6">
-									<label for="confermaPassword" class="form-label">Ripeti nuova password <span class="text-danger">*</span></label>
-									<input type="password" class="form-control" name="confermaPassword" id="confermaPassword" placeholder="Ripetere nuova password" required>
+									<label for="nuovaPasswordRep" class="form-label">Ripeti nuova password <span class="text-danger">*</span></label>
+									<input type="password" class="form-control" name="nuovaPasswordRep" id="nuovaPasswordRep" placeholder="Ripetere nuova password" required>
 								</div>
 								
 								<div class="col-12">

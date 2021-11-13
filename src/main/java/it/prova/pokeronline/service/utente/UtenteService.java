@@ -27,5 +27,7 @@ public interface UtenteService {
 	public void changeUserAbilitation(Long utenteInstanceId);
 
 	public Utente findByUsername(String username);
+	
+	public int cambioPassword(String vecchia, String nuova, String confermaPassword, String user);
 
 }

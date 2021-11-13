@@ -99,4 +99,17 @@ public class UtenteServiceImpl implements UtenteService {
 		return repository.findByUsername(username).orElse(null);
 	}
 
+	@Transactional
+	public int cambioPassword(String vecchia, String nuova, String confermaPassword, String user) {
+		
+		Utente utente = repository.findByUsername(user).get();
+		if(!passwordEncoder.matches(vecchia, utente.getPassword()))
+			return -1;
+		if(!nuova.equals(confermaPassword))
+			return -2;
+		
+		utente.setPassword(passwordEncoder.encode(nuova));
+		return 0;
+	}
+
 }

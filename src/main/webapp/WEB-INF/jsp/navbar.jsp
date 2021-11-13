@@ -45,7 +45,7 @@
 					</a>
 			    <div class="dropdown-menu" aria-labelledby="dropdown01">
 			      <a class="dropdown-item" href="${pageContext.request.contextPath}/logout">Logout</a>
-			      <a class="dropdown-item" href="${pageContext.request.contextPath}/utente/changePassword">Cambia Password</a>
+			      <a class="dropdown-item" href="${pageContext.request.contextPath}/utente/cambioPassword">Cambia Password</a>
 			    </div>
 		    </div>
 		   </sec:authorize>
