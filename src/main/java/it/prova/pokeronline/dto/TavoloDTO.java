@@ -26,7 +26,7 @@ public class TavoloDTO {
 	@Column(name = "dateCreated")
 	private Date dateCreated;
 
-	@NotNull(message = "{utente.notnull}")
+	@NotNull(message = "{utenteCreatore.notnull}")
 	private UtenteDTO utenteCreatore;
 
 	public TavoloDTO(Long id, Integer esperienzaMin, Integer cifraMin, String denominazione, Date dateCreated,

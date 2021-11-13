@@ -40,8 +40,8 @@ public class Utente {
 
 	@Column(name = "esperienzaAccumulata")
 	private Integer esperienzaAccumulata;
-	@Column(name = "creditoResiduo")
-	private Integer creditoResiduo;
+	@Column(name = "creditoAccumulato")
+	private Integer creditoAccumulato;
 
 	@Enumerated(EnumType.STRING)
 	private StatoUtente stato;
@@ -140,12 +140,12 @@ public class Utente {
 		this.esperienzaAccumulata = esperienzaAccumulata;
 	}
 
-	public Integer getCreditoResiduo() {
-		return creditoResiduo;
+	public Integer getCreditoAccumulato() {
+		return creditoAccumulato;
 	}
 
-	public void setCreditoResiduo(Integer creditoResiduo) {
-		this.creditoResiduo = creditoResiduo;
+	public void setCreditoResiduo(Integer creditoAccumulato) {
+		this.creditoAccumulato = creditoAccumulato;
 	}
 
 	public StatoUtente getStato() {
