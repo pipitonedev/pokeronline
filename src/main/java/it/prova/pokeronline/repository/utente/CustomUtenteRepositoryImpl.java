@@ -46,15 +46,15 @@ public class CustomUtenteRepositoryImpl implements CustomUtenteRepository {
 			paramaterMap.put("dateCreated", example.getDateCreated());
 		}
 
-		if (example.getEsperienzaAccumulata() > 0) {
-			whereClauses.add("u.esperienzaAccumulata >= :esperienzaAccumulata ");
-			paramaterMap.put("esperienzaAccumulata", example.getEsperienzaAccumulata());
-		}
-
-		if (example.getCreditoAccumulato() > 0) {
-			whereClauses.add("u.creditoAccumulato >= :creditoAccumulato ");
-			paramaterMap.put("creditoAccumulato", example.getCreditoAccumulato());
-		}
+//		if (example.getEsperienzaAccumulata() > 0) {
+//			whereClauses.add("u.esperienzaAccumulata >= :esperienzaAccumulata ");
+//			paramaterMap.put("esperienzaAccumulata", example.getEsperienzaAccumulata());
+//		}
+//
+//		if (example.getCreditoAccumulato() > 0) {
+//			whereClauses.add("u.creditoAccumulato >= :creditoAccumulato ");
+//			paramaterMap.put("creditoAccumulato", example.getCreditoAccumulato());
+//		}
 
 		if (example.getStato() != null) {
 			whereClauses.add(" u.stato =:stato ");
