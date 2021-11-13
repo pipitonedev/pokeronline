@@ -12,6 +12,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
@@ -83,6 +84,32 @@ public class UtenteController {
 			return "utente/insert";
 		}
 		utenteService.inserisciNuovo(utenteDTO.buildUtenteModel(true));
+
+		redirectAttrs.addFlashAttribute("successMessage", "Operazione eseguita correttamente");
+		return "redirect:/utente";
+	}
+	
+	@GetMapping("/edit/{idUtente}")
+	public String edit(@PathVariable(required = true) Long idUtente, Model model) {
+		Utente utenteModel = utenteService.caricaSingoloUtenteConRuoli(idUtente);
+		model.addAttribute("edit_utente_attr", UtenteDTO.buildUtenteDTOFromModel(utenteModel));
+		model.addAttribute("mappaRuoliConSelezionati_attr",
+				UtilityForm.buildCheckedRolesFromRolesAlreadyInUtente(
+						RuoloDTO.createRuoloDTOListFromModelList(ruoloService.listAll()),
+						RuoloDTO.createRuoloDTOListFromModelSet(utenteModel.getRuoli())));
+		return "utente/edit";
+	}
+	
+	@PostMapping("/update")
+	public String update(@Validated(ValidationNoPassword.class) @ModelAttribute("edit_utente_attr") UtenteDTO utenteDTO,
+			BindingResult result, Model model, RedirectAttributes redirectAttrs, HttpServletRequest request) {
+
+		if (result.hasErrors()) {
+			model.addAttribute("mappaRuoliConSelezionati_attr", UtilityForm.buildCheckedRolesForPages(
+					RuoloDTO.createRuoloDTOListFromModelList(ruoloService.listAll()), utenteDTO.getRuoliIds()));
+			return "utente/edit";
+		}
+		utenteService.aggiorna(utenteDTO.buildUtenteModel(true));
 
 		redirectAttrs.addFlashAttribute("successMessage", "Operazione eseguita correttamente");
 		return "redirect:/utente";
