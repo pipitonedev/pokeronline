@@ -16,6 +16,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -46,12 +47,15 @@ public class Utente {
 	private StatoUtente stato;
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "tavolo_id", nullable = false)
+	@JoinColumn(name = "tavolo_id")
 	private Tavolo tavolo;
 
 	@ManyToMany
 	@JoinTable(name = "utente_ruolo", joinColumns = @JoinColumn(name = "utente_id", referencedColumnName = "ID"), inverseJoinColumns = @JoinColumn(name = "ruolo_id", referencedColumnName = "ID"))
 	private Set<Ruolo> ruoli = new HashSet<>(0);
+	
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "utenteCreatore")
+	private Set<Tavolo> tavoliCreati = new HashSet<Tavolo>();
 
 	public Utente() {
 	}

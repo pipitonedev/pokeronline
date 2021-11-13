@@ -1,10 +1,14 @@
 package it.prova.pokeronline.dto;
 
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+
+import it.prova.pokeronline.model.Utente;
 
 public class TavoloDTO {
 
@@ -25,9 +29,14 @@ public class TavoloDTO {
 	@NotNull(message = "{dateCreated.notnull}")
 	@Column(name = "dateCreated")
 	private Date dateCreated;
-
-	@NotNull(message = "{utenteCreatore.notnull}")
+	
+	@NotNull(message = "{utentecreatore.notnull}")
 	private UtenteDTO utenteCreatore;
+
+	private Set<Utente> giocatori = new HashSet<Utente>();
+
+	public TavoloDTO() {
+	}
 
 	public TavoloDTO(Long id, Integer esperienzaMin, Integer cifraMin, String denominazione, Date dateCreated,
 			UtenteDTO utenteCreatore) {
@@ -86,6 +95,14 @@ public class TavoloDTO {
 
 	public void setUtenteCreatore(UtenteDTO utenteCreatore) {
 		this.utenteCreatore = utenteCreatore;
+	}
+
+	public Set<Utente> getGiocatori() {
+		return giocatori;
+	}
+
+	public void setGiocatori(Set<Utente> giocatori) {
+		this.giocatori = giocatori;
 	}
 
 }

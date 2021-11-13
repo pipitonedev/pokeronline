@@ -13,6 +13,7 @@ import javax.validation.constraints.Size;
 
 import it.prova.pokeronline.model.Ruolo;
 import it.prova.pokeronline.model.StatoUtente;
+import it.prova.pokeronline.model.Tavolo;
 import it.prova.pokeronline.model.Utente;
 import it.prova.pokeronline.validation.ValidationNoPassword;
 import it.prova.pokeronline.validation.ValidationWithPassword;
@@ -28,6 +29,8 @@ public class UtenteDTO {
 	@NotBlank(message = "{password.notblank}", groups = ValidationWithPassword.class)
 	@Size(min = 8, max = 15, message = "Il valore inserito deve essere lungo tra {min} e {max} caratteri")
 	private String password;
+	
+	private String confermaPassword;
 
 	@NotBlank(message = "{nome.notblank}", groups = { ValidationWithPassword.class, ValidationNoPassword.class })
 	private String nome;
@@ -43,7 +46,7 @@ public class UtenteDTO {
 
 	private StatoUtente stato;
 
-	private TavoloDTO tavolo;
+	private Tavolo tavolo;
 
 	private Long[] ruoliIds;
 	private Set<RuoloDTO> ruoli = new HashSet<>(0);
@@ -134,11 +137,11 @@ public class UtenteDTO {
 		this.stato = stato;
 	}
 
-	public TavoloDTO getTavolo() {
+	public Tavolo getTavolo() {
 		return tavolo;
 	}
 
-	public void setTavolo(TavoloDTO tavolo) {
+	public void setTavolo(Tavolo tavolo) {
 		this.tavolo = tavolo;
 	}
 

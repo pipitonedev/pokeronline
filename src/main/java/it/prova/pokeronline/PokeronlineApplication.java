@@ -40,14 +40,14 @@ public class PokeronlineApplication implements CommandLineRunner {
 		}
 
 		if (utenteServiceInstance.findByUsername("admin") == null) {
-			Utente admin = new Utente("admin", "admin", "nome 1", "cognome 1", new Date(), 0, 1000);
+			Utente admin = new Utente("admin", "admin", "Mario", "Rossi", new Date(), 0, 1000);
 			admin.setStato(StatoUtente.ATTIVO);
 			admin.getRuoli().add(ruoloServiceInstance.cercaPerDescrizioneECodice("Administrator", "ROLE_ADMIN"));
 			utenteServiceInstance.inserisciNuovo(admin);
 		}
 
 		if (utenteServiceInstance.findByUsername("user") == null) {
-			Utente classicUser = new Utente("user", "user", "nome 2", "cognome 2", new Date(), 0, 1000);
+			Utente classicUser = new Utente("user", "user", "Vincenzo", "Pipitone", new Date(), 0, 1000);
 			classicUser.setStato(StatoUtente.ATTIVO);
 			classicUser.getRuoli()
 					.add(ruoloServiceInstance.cercaPerDescrizioneECodice("special player", "ROLE_SPECIAL_PLAYER"));
@@ -55,7 +55,7 @@ public class PokeronlineApplication implements CommandLineRunner {
 		}
 
 		if (utenteServiceInstance.findByUsername("user1") == null) {
-			Utente classicUser1 = new Utente("user1", "user1", "nome 3", "cognome 3", new Date(), 0, 1000);
+			Utente classicUser1 = new Utente("user1", "user1", "Giovanni", "Verdi", new Date(), 0, 1000);
 			classicUser1.setStato(StatoUtente.ATTIVO);
 			classicUser1.getRuoli()
 					.add(ruoloServiceInstance.cercaPerDescrizioneECodice("special player", "ROLE_SPECIAL_PLAYER"));
@@ -63,14 +63,14 @@ public class PokeronlineApplication implements CommandLineRunner {
 		}
 
 		if (utenteServiceInstance.findByUsername("user2") == null) {
-			Utente classicUser2 = new Utente("user2", "user2", "nome 4", "cognome 4", new Date(), 0, 1000);
+			Utente classicUser2 = new Utente("user2", "user2", "Cristiano", "Ronaldo", new Date(), 0, 1000);
 			classicUser2.setStato(StatoUtente.ATTIVO);
 			classicUser2.getRuoli().add(ruoloServiceInstance.cercaPerDescrizioneECodice("role player", "ROLE_PLAYER"));
 			utenteServiceInstance.inserisciNuovo(classicUser2);
 		}
 
 		if (utenteServiceInstance.findByUsername("user3") == null) {
-			Utente classicUser2 = new Utente("user3", "user4", "nome 5", "cognome 5", new Date(), 0, 1000);
+			Utente classicUser2 = new Utente("user3", "user4", "Ale", "Ale", new Date(), 0, 1000);
 			classicUser2.setStato(StatoUtente.ATTIVO);
 			classicUser2.getRuoli().add(ruoloServiceInstance.cercaPerDescrizioneECodice("role player", "ROLE_PLAYER"));
 			utenteServiceInstance.inserisciNuovo(classicUser2);
