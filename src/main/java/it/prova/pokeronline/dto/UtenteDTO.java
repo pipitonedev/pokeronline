@@ -29,7 +29,7 @@ public class UtenteDTO {
 	@NotBlank(message = "{password.notblank}", groups = ValidationWithPassword.class)
 	@Size(min = 8, max = 15, message = "Il valore inserito deve essere lungo tra {min} e {max} caratteri")
 	private String password;
-	
+
 	private String confermaPassword;
 
 	@NotBlank(message = "{nome.notblank}", groups = { ValidationWithPassword.class, ValidationNoPassword.class })
@@ -87,6 +87,14 @@ public class UtenteDTO {
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+	public String getConfermaPassword() {
+		return confermaPassword;
+	}
+
+	public void setConfermaPassword(String confermaPassword) {
+		this.confermaPassword = confermaPassword;
 	}
 
 	public String getNome() {
