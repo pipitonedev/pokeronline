@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import it.prova.pokeronline.model.Tavolo;
+import it.prova.pokeronline.model.Utente;
 import it.prova.pokeronline.repository.tavolo.TavoloRepository;
 
 @Service
@@ -42,10 +43,15 @@ public class TavoloServiceImpl implements TavoloService {
 		
 	}
 
-	@Override
+	@Transactional(readOnly = true)
 	public List<Tavolo> findByExample(Tavolo example) {
-		// TODO Auto-generated method stub
-		return null;
+		return repository.findByExample(example);
 	}
+
+	@Transactional(readOnly = true)
+	public List<Tavolo> listAllMieiTavoli(Utente user) {
+		return repository.findAllByUtenteCreatore_IdIs(user.getId());
+	}
+
 
 }
