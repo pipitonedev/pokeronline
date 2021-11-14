@@ -34,7 +34,7 @@
 		  
 		  		<div class='card'>
 				    <div class='card-header'>
-				        <h5>Lista dei tavoli</h5> 
+				        <h5>Lista dei risultati</h5> 
 				    </div>
 				    <div class='card-body'>
 				    	<a class="btn btn-primary " href="${pageContext.request.contextPath}/tavolo/insert">Add New</a>

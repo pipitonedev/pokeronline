@@ -55,7 +55,17 @@
 										<form:errors  path="denominazione" cssClass="error_field" />
 									</div>
 									
-							
+									<div class="col-md-6">	
+										<fmt:formatDate pattern='yyyy-MM-dd' var="parsedDate" type='date' value='${insert_film_attr.dateCreated}' />
+										<div class="form-group col-md-6">
+											<label for="dateCreated" class="form-label">Data di creazione</label>
+			                        		<spring:bind path="dateCreated">
+				                        		<input class="form-control ${status.error ? 'is-invalid' : ''}" id="dateCreated" type="date" placeholder="dd/MM/yy"
+				                            		title="formato : gg/mm/aaaa"  name="dateCreated" value="${parsedDate}" >
+				                            </spring:bind>
+			                            	<form:errors  path="dateCreated" cssClass="error_field" />
+										</div>
+									</div>
 										
 									<div class="col-md-6">
 										<label for="esperienzaMin" class="form-label">Esperienza minima</label>

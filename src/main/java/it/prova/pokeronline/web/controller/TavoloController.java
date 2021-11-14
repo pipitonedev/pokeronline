@@ -12,6 +12,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
@@ -53,12 +54,13 @@ public class TavoloController {
 
 	@PostMapping("/list")
 	public String listTavoli(TavoloDTO tavoloExample, ModelMap model) {
+		System.out.println(tavoloExample);
 		List<Tavolo> tavoli = tavoloService.findByExample(tavoloExample.buildTavoloModel());
 		model.addAttribute("tavolo_list_attribute", TavoloDTO.createTavoloDTOListFromModelList(tavoli));
 		return "tavolo/list";
 	}
 	
-	@GetMapping("/iMieiTavoli")
+	@GetMapping("/imieitavoli")
 	public String findMieiTavoli(Model model, HttpServletRequest request) {
 		List<Tavolo> tavoli = tavoloService.listAllMieiTavoli(utenteService.findByUsername(request.getUserPrincipal().getName()));
 		model.addAttribute("tavolo_list_attribute", tavoli);
@@ -66,7 +68,7 @@ public class TavoloController {
 	}
 	
 	@GetMapping("/insert")
-	public String createFilm(Model model) {
+	public String createTavolo(Model model) {
 		model.addAttribute("insert_tavolo_attr", new TavoloDTO());
 		return "tavolo/insert";
 	}
@@ -79,15 +81,22 @@ public class TavoloController {
 		if (result.hasErrors()) 
 			return "tavolo/insert";
 		
-		Utente io = utenteService.findByUsername(request.getUserPrincipal().getName());
+		Utente user = utenteService.findByUsername(request.getUserPrincipal().getName());
 		UtenteDTO creatore = new UtenteDTO();
-		creatore.setId(io.getId());
+		creatore.setId(user.getId());
 		tavoloDTO.setUtenteCreatore(creatore);
 	
 		tavoloService.inserisciNuovo(tavoloDTO.buildTavoloModel());
 
 		redirectAttrs.addFlashAttribute("successMessage", "Operazione eseguita correttamente");
-		return "redirect:/tavolo/iMieiTavoli";
+		return "redirect:/tavolo/imieitavoli";
+	}
+	
+	@GetMapping("/show/{idTavolo}")
+	public String visualizzaTavolo(@PathVariable(required = true) Long idTavolo, Model model) {
+		Tavolo tavolo = tavoloService.caricaSingoloElemento(idTavolo);
+		model.addAttribute("show_tavolo_attr", tavolo);
+		return "tavolo/show";
 	}
 
 }

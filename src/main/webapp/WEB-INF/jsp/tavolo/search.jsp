@@ -68,7 +68,7 @@
 				</div>
 				    <div class='card-body'>
 				        
-				        <form method="post" action="list" class="row g-3">
+				        <form method="post" action="${pageContext.request.contextPath}/tavolo/list" class="row g-3">
 								
 							<div class="col-md-6">
 								<label for="denominazione" class="form-label">Denominazione</label>
@@ -89,20 +89,7 @@
 								<input type="text" name="cifraMin" id="cifraMin" class="form-control " placeholder="Inserire puntata minima" value="${search_tavolo_attr.cifraMin }">
 							</div>
 							
-							<div class="col-md-6">
-								<label for="utenteCreatoreSearchInput" class="form-label">Creatore tavolo:</label>
-								<input class="form-control " type="text" id="utenteCreatoreSearchInput"
-										name="utenteCreatoreInput" value="${search_tavolo_attr.utenteCreatore.nome}${search_tavolo_attr.utenteCreatore.cognome}">
-								<input type="hidden" name="utenteCreatore.id" id="utenteCreatoreId" value="${search_tavolo_attr.utenteCreatore.id}">
-							</div>
-							
-							<div class="col-md-6">
-								<label for="giocatoriSearchInput" class="form-label">Giocatori:</label>
-								<input class="form-control " type="text" id="giocatoriSearchInput"
-										name="giocatoriInput" value="${search_tavolo_attr.giocatoreCercato.nome}">
-								<input type="hidden" name="giocatori.id" id="giocatoriId" value="${search_tavolo_attr.giocatoreCercato.id}">
-							</div>
-	
+						
 							<div class="col-12">	
 								<button type="submit" name="submit" value="submit" id="submit" class="btn btn-primary">Conferma</button>
 								<a class="btn btn-outline-primary ml-2" href="${pageContext.request.contextPath }/tavolo/insert">Add New</a>
@@ -110,72 +97,7 @@
 										
 						</form>
 						
-						<script>
-							$("#utenteCreatoreSearchInput").autocomplete({
-								 source: function(request, response) {
-								        $.ajax({
-								            url: "../tavolo/searchUtentiAjax",
-								            datatype: "json",
-								            data: {
-								                term: request.term,   
-								            },
-								            success: function(data) {
-								                response($.map(data, function(item) {
-								                    return {
-									                    label: item.label,
-									                    value: item.value
-								                    }
-								                }))
-								            }
-								        })
-								    },
-								//quando seleziono la voce nel campo deve valorizzarsi la descrizione
-							    focus: function(event, ui) {
-							        $("#utenteCreatoreSearchInput").val(ui.item.label)
-							        return false
-							    },
-							    minLength: 2,
-							    //quando seleziono la voce nel campo hidden deve valorizzarsi l'id
-							    select: function( event, ui ) {
-							    	$('#utenteCreatoreSearchInputId').val(ui.item.value);
-							    	//console.log($('#registaId').val())
-							        return false;
-							    }
-							});
-						</script>
-						<script>
-							$("#giocatoriSearchInput").autocomplete({
-								 source: function(request, response) {
-								        $.ajax({
-								            url: "../tavolo/searchUtentiAjax",
-								            datatype: "json",
-								            data: {
-								                term: request.term,   
-								            },
-								            success: function(data) {
-								                response($.map(data, function(item) {
-								                    return {
-									                    label: item.label,
-									                    value: item.value
-								                    }
-								                }))
-								            }
-								        })
-								    },
-								//quando seleziono la voce nel campo deve valorizzarsi la descrizione
-							    focus: function(event, ui) {
-							        $("#giocatoriSearchInput").val(ui.item.label)
-							        return false
-							    },
-							    minLength: 2,
-							    //quando seleziono la voce nel campo hidden deve valorizzarsi l'id
-							    select: function( event, ui ) {
-							    	$('#giocatoriSearchInput').val(ui.item.value);
-							    	//console.log($('#registaId').val())
-							        return false;
-							    }
-							});
-						</script>
+						
 							<!-- end card-body -->			   
 				    	</div>
 				

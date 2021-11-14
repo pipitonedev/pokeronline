@@ -40,13 +40,7 @@ public class UtenteDTO {
 
 	private Date dateCreated;
 
-	private Integer esperienzaAccumulata;
-
-	private Integer creditoResiduo;
-
 	private StatoUtente stato;
-
-	private Tavolo tavolo;
 
 	private Long[] ruoliIds;
 	private Set<RuoloDTO> ruoli = new HashSet<>(0);
@@ -121,36 +115,12 @@ public class UtenteDTO {
 		this.dateCreated = dateCreated;
 	}
 
-	public Integer getEsperienzaAccumulata() {
-		return esperienzaAccumulata;
-	}
-
-	public void setEsperienzaAccumulata(Integer esperienzaAccumulata) {
-		this.esperienzaAccumulata = esperienzaAccumulata;
-	}
-
-	public Integer getCreditoResiduo() {
-		return creditoResiduo;
-	}
-
-	public void setCreditoResiduo(Integer creditoResiduo) {
-		this.creditoResiduo = creditoResiduo;
-	}
-
 	public StatoUtente getStato() {
 		return stato;
 	}
 
 	public void setStato(StatoUtente stato) {
 		this.stato = stato;
-	}
-
-	public Tavolo getTavolo() {
-		return tavolo;
-	}
-
-	public void setTavolo(Tavolo tavolo) {
-		this.tavolo = tavolo;
 	}
 
 	public Long[] getRuoliIds() {

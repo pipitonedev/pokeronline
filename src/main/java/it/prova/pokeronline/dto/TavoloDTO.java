@@ -5,6 +5,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.util.stream.Collectors;
@@ -17,9 +18,11 @@ public class TavoloDTO {
 	private Long id;
 
 	@NotNull(message = "{esperienzaMin.notnull}")
+	@Min(0)
 	private Integer esperienzaMin;
 
 	@NotNull(message = "{cifraMinima.notnull}")
+	@Min(0)
 	private Integer cifraMin;
 
 	@NotBlank(message = "{denominazione.notblank}")
@@ -142,8 +145,14 @@ public class TavoloDTO {
 	}
 
 	public Tavolo buildTavoloModel() {
-		return new Tavolo(this.id, this.denominazione, this.dateCreated, this.esperienzaMin, this.cifraMin,
-				this.utenteCreatore.buildUtenteModel(false), this.giocatori);
+		return new Tavolo(this.id, this.denominazione, this.dateCreated, this.esperienzaMin, this.cifraMin);
+	}
+
+	@Override
+	public String toString() {
+		return "TavoloDTO [id=" + id + ", esperienzaMin=" + esperienzaMin + ", cifraMin=" + cifraMin
+				+ ", denominazione=" + denominazione + ", dateCreated=" + dateCreated + ", utenteCreatore="
+				+ utenteCreatore + ", giocatori=" + giocatori + ", giocatoreCercato=" + giocatoreCercato + "]";
 	}
 
 }
