@@ -57,17 +57,15 @@
 			    <!-- end card body -->
 			    </div>
 			    
-			    <div class='card-footer'>
-			        <form method="post"  action="${pageContext.request.contextPath}/tavolo/salvadelete" novalidate="novalidate" >
-				    	<input type="hidden" name="idTavolo" value="${delete_tavolo_attr.id}">
-				    	<div class='card-footer'>
-							<button type="submit" name="submit" value="submit" id="submit" class="btn btn-primary">Conferma</button>
-					        <a href="${pageContext.request.contextPath }/tavolo" class='btn btn-outline-secondary' style='width:80px'>
-					            <i class='fa fa-chevron-left'></i> Back
-					        </a>
-					    </div>
-					</form>
-			    </div>
+			    <form method="post"  action="${pageContext.request.contextPath}/tavolo/salvadelete" novalidate="novalidate" >
+			    	<input type="hidden" name="idFilm" value="${delete_film_attr.id}">
+			    	<div class='card-footer'>
+						<button type="submit" name="submit" value="submit" id="submit" class="btn btn-success">Conferma</button>
+				        <a href="${pageContext.request.contextPath }/tavolo/" class='btn btn-outline-secondary' style='width:80px'>
+				            <i class='fa fa-chevron-left'></i> Back
+				        </a>
+				    </div>
+				</form>
 			<!-- end card -->
 			</div>	
 	

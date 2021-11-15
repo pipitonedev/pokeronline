@@ -31,5 +31,7 @@ public interface UtenteService {
 	public int cambioPassword(String vecchia, String nuova, String confermaPassword, String user);
 	
 	public void aggiungiCredito(String user, int creditoDaAggiungere);
+	
+	public List<Utente> cercaByCognomeENomeILike(String term);
 
 }

@@ -69,7 +69,7 @@
 								$("#utenteCreatoreSearchInput").autocomplete({
 									 source: function(request, response) {
 									        $.ajax({
-									            url: "../utente/searchUtentiAjax",
+									            url: "${pageContext.request.contextPath }/utente/searchUtentiAjax",
 									            datatype: "json",
 									            data: {
 									                term: request.term,   

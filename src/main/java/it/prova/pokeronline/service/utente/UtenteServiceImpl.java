@@ -123,4 +123,9 @@ public class UtenteServiceImpl implements UtenteService {
 		repository.save(utenteReloaded);
 	}
 
+	@Transactional(readOnly = true)
+	public List<Utente> cercaByCognomeENomeILike(String term) {
+		return repository.findByCognomeIgnoreCaseContainingOrNomeIgnoreCaseContainingOrderByNomeAsc(term, term);
+	}
+
 }
