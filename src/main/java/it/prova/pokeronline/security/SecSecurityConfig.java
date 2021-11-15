@@ -39,6 +39,8 @@ public class SecSecurityConfig extends WebSecurityConfigurerAdapter {
          .antMatchers("/login").permitAll()
          .antMatchers("/utente/cambioPassword").hasAnyRole("ADMIN", "PLAYER", "SPECIAL_PLAYER")
          .antMatchers("/utente/saveCambioPassword").hasAnyRole("ADMIN", "PLAYER", "SPECIAL_PLAYER")
+         .antMatchers("/utente/ricarica").hasAnyRole("ADMIN", "PLAYER", "SPECIAL_PLAYER")
+         .antMatchers("/utente/addcredito").hasAnyRole("ADMIN", "PLAYER", "SPECIAL_PLAYER")
          .antMatchers("/utente/**").hasRole("ADMIN")
          .antMatchers("/tavolo/**").hasAnyRole("ADMIN", "SPECIAL_PLAYER", "PLAYER")
          //.antMatchers("/anonymous*").anonymous()

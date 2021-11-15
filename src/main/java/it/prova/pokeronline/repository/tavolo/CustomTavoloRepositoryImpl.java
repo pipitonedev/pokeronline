@@ -26,10 +26,10 @@ public class CustomTavoloRepositoryImpl implements CustomTavoloRepository {
 		List<String> whereClauses = new ArrayList<String>();
 		
 		if(example.getEsperienzaMin() == null)
-			example.setEsperienzaMin(1);
+			example.setEsperienzaMin(0);
 		
 		if(example.getCifraMin() == null)
-			example.setCifraMin(1);
+			example.setCifraMin(0);
 
 		StringBuilder queryBuilder = new StringBuilder(
 				"select t from Tavolo t join fetch t.utenteCreatore u where t.id = t.id");
@@ -42,11 +42,11 @@ public class CustomTavoloRepositoryImpl implements CustomTavoloRepository {
 			whereClauses.add(" t.dateCreated >= :dateCreated ");
 			paramaterMap.put("dateCreated", example.getDateCreated());
 		}
-		if (example.getEsperienzaMin() > 0) {
+		if (example.getEsperienzaMin() >= 0) {
 			whereClauses.add(" t.esperienzaMin >= :esperienzaMin ");
 			paramaterMap.put("esperienzaMin", example.getEsperienzaMin());
 		}
-		if (example.getCifraMin() > 0) {
+		if (example.getCifraMin() >= 0) {
 			whereClauses.add(" t.cifraMin >= :cifraMin ");
 			paramaterMap.put("cifraMin", example.getCifraMin());
 		}

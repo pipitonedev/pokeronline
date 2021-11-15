@@ -30,6 +30,6 @@ public interface UtenteService {
 	
 	public int cambioPassword(String vecchia, String nuova, String confermaPassword, String user);
 	
-	public void aggiungiCredito(Utente utenteInstance, int creditoDaAggiungere);
+	public void aggiungiCredito(String user, int creditoDaAggiungere);
 
 }

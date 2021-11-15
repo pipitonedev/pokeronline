@@ -22,8 +22,6 @@ import it.prova.pokeronline.model.Tavolo;
 import it.prova.pokeronline.model.Utente;
 import it.prova.pokeronline.service.tavolo.TavoloService;
 import it.prova.pokeronline.service.utente.UtenteService;
-import it.prova.pokeronline.utility.UtilityForm;
-import it.prova.pokeronline.dto.RuoloDTO;
 import it.prova.pokeronline.dto.TavoloDTO;
 import it.prova.pokeronline.dto.UtenteDTO;
 
@@ -53,7 +51,7 @@ public class TavoloController {
 	}
 
 	@PostMapping("/list")
-	public String listTavoli(@ModelAttribute("search_gestione_tavolo_attr") TavoloDTO tavoloDTO, Model model,
+	public String listTavoli(@ModelAttribute("search_tavolo_attr") TavoloDTO tavoloDTO, Model model, 
 			RedirectAttributes redirectAttrs, HttpServletRequest request) {
 		
 		List<Tavolo> tavoli = tavoloService.findByExample(tavoloDTO, request.getUserPrincipal().getName());

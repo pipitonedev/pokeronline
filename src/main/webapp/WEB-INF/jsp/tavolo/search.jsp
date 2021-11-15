@@ -28,31 +28,31 @@
 							
 								<div class="col-md-6">
 									<label for="denominazione" class="form-label">Denominazione</label>
-									<input type="text" name="denominazione" id="denominazione" class="form-control" placeholder="Inserire denominazione" value="${search_gestione_tavolo_attr.denominazione}">
+									<input type="text" name="denominazione" id="denominazione" class="form-control" placeholder="Inserire denominazione" value="${search_tavolo_attr.denominazione}">
 								</div>
 								
 								<div class="col-md-6">
 									<label for="dateCreated" class="form-label">Data di Creazione</label>
 	                        		<input class="form-control" id="dateCreated" type="date" placeholder="dd/MM/yy"
-	                            		title="formato : gg/mm/aaaa"  name="dateCreated" value="${search_gestione_tavolo_attr.dateCreated}">
+	                            		title="formato : gg/mm/aaaa"  name="dateCreated" value="${search_tavolo_attr.dateCreated}">
 								</div>
 								
 								<div class="col-md-6">
 									<label for="cifraMin" class="form-label">Cifra minima</label>
-									<input type="number" name="cifraMin" id="cifraMin" class="form-control" placeholder="Inserire cifra minima" value="${search_gestione_tavolo_attr.cifraMin}">
+									<input type="number" name="cifraMin" id="cifraMin" class="form-control" placeholder="Inserire cifra minima" value="${search_tavolo_attr.cifraMin}">
 								</div>
 								
 								<div class="col-md-6">
 									<label for="esperienzaMin" class="form-label">Esperienza minima</label>
-									<input type="number" class="form-control" name="esperienzaMin" id="esperienzaMin" placeholder="Inserire esperienza minima" value="${search_gestione_tavolo_attr.esperienzaMin}">
+									<input type="number" class="form-control" name="esperienzaMin" id="esperienzaMin" placeholder="Inserire esperienza minima" value="${search_tavolo_attr.esperienzaMin}">
 								</div>
 								
 								<sec:authorize access="hasRole('ADMIN')">
 									<div class="col-md-6">
 										<label for="utenteCreatoreSearchInput" class="form-label">Creatore tavolo:</label>
 										<input class="form-control " type="text" id="utenteCreatoreSearchInput"
-												name="utenteCreatoreInput" value="${search_gestione_tavolo_attr.utenteCreatore.nome}${search_gestione_tavolo_attr.utenteCreatore.cognome}">
-										<input type="hidden" name="utenteCreatore.id" id="utenteCreatoreId" value="${search_gestione_tavolo_attr.utenteCreatore.id}">
+												name="utenteCreatoreInput" value="${search_tavolo_attr.utenteCreatore.nome}${search_tavolo_attr.utenteCreatore.cognome}">
+										<input type="hidden" name="utenteCreatore.id" id="utenteCreatoreId" value="${search_tavolo_attr.utenteCreatore.id}">
 									</div>
 								</sec:authorize>
 								
@@ -60,7 +60,7 @@
 								<div class="col-12">
 									<button type="submit" name="submit" value="submit" id="submit" class="btn btn-primary">Conferma</button>
 									<input class="btn btn-outline-warning" type="reset" value="Ripulisci">
-									<a class="btn btn-outline-primary ml-2" href="${pageContext.request.contextPath }/film/insert">Add New</a>
+									<a class="btn btn-outline-success ml-2" href="${pageContext.request.contextPath }/tavolo/insert">Add New</a>
 								</div>
 								
 							</form>

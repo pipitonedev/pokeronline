@@ -173,8 +173,9 @@ public class UtenteController {
 	@PostMapping("/addcredito")
 	public String addCredito(Model model, HttpServletRequest request) {
 		int creditoDaAggiungere = Integer.parseInt(request.getParameter("ricarica"));
-		Utente utenteInSessione = (Utente) request.getSession().getAttribute("userInfo");
-
+		String utenteInSessione = request.getUserPrincipal().getName();
+		System.out.println(creditoDaAggiungere);
+		System.out.println(utenteInSessione);
 		utenteService.aggiungiCredito(utenteInSessione, creditoDaAggiungere);
 		return "index";
 	}
