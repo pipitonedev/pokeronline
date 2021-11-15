@@ -51,7 +51,7 @@
 			     <div class="p-5 mb-4 bg-light rounded-3">
 				      <div class="container-fluid py-5">
 				        <h1 class="display-5 fw-bold">Benvenuto al Poker Online!</h1>
-				        <a class="btn btn-primary btn-lg" href="${pageContext.request.contextPath}/tavolo/search">Cerca Un tavolo</a>
+				        <a class="btn btn-success btn-lg" href="${pageContext.request.contextPath}/tavolo/search">Cerca Un tavolo</a>
 				      </div>
 			    </div>
 			    

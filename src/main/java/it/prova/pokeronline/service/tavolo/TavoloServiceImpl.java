@@ -6,16 +6,20 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import it.prova.pokeronline.dto.TavoloDTO;
 import it.prova.pokeronline.model.Tavolo;
 import it.prova.pokeronline.model.Utente;
 import it.prova.pokeronline.repository.tavolo.TavoloRepository;
+import it.prova.pokeronline.repository.utente.UtenteRepository;
 
 @Service
 public class TavoloServiceImpl implements TavoloService {
-	
+
 	@Autowired
 	private TavoloRepository repository;
 
+	@Autowired
+	UtenteRepository utenteRepository;
 
 	@Transactional(readOnly = true)
 	public List<Tavolo> listAllElements() {
@@ -40,18 +44,23 @@ public class TavoloServiceImpl implements TavoloService {
 	@Transactional
 	public void rimuovi(Tavolo tavoloInstance) {
 		repository.delete(tavoloInstance);
-		
+
 	}
 
 	@Transactional(readOnly = true)
-	public List<Tavolo> findByExample(Tavolo example) {
-		return repository.findByExample(example);
+	public List<Tavolo> findByExample(TavoloDTO tavolo, String username) {
+		Utente utente = utenteRepository.findByUsernameConRuoli(username).get();
+
+		if (utente.isAdmin()) {
+			return repository.findByExample(tavolo);
+		}
+
+		return repository.findByExampleTavoli(tavolo, utente.getId());
 	}
 
 	@Transactional(readOnly = true)
 	public List<Tavolo> listAllMieiTavoli(Utente user) {
 		return repository.findAllByUtenteCreatore_IdIs(user.getId());
 	}
-
 
 }
