@@ -50,6 +50,7 @@
 							<form:form modelAttribute="edit_utente_attr" method="post" action="${pageContext.request.contextPath}/utente/addcredito" novalidate="novalidate" class="row g-3">
 							
 								<div class="col-md-6">
+								
 									<label for="nome" class="form-label">Ricarica <span class="text-danger">*</span></label>
 										<input type="text" name="ricarica" id="ricarica" class="form-control ${status.error ? 'is-invalid' : ''}" placeholder="Inserire Importo" value="" required>
 								</div>

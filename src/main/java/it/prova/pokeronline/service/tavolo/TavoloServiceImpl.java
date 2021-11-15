@@ -19,7 +19,7 @@ public class TavoloServiceImpl implements TavoloService {
 	private TavoloRepository repository;
 
 	@Autowired
-	UtenteRepository utenteRepository;
+	private UtenteRepository utenteRepository;
 
 	@Transactional(readOnly = true)
 	public List<Tavolo> listAllElements() {
@@ -61,6 +61,17 @@ public class TavoloServiceImpl implements TavoloService {
 	@Transactional(readOnly = true)
 	public List<Tavolo> listAllMieiTavoli(Utente user) {
 		return repository.findAllByUtenteCreatore_IdIs(user.getId());
+	}
+
+	@Transactional(readOnly = true)
+	public Tavolo caricaSingoloTavoloConGiocatori(Long id) {
+		return repository.findByIdConGiocatori(id).orElse(null);
+	}
+
+	@Transactional
+	public void rimuoviById(Long id) {
+		repository.deleteById(id);
+		
 	}
 
 }

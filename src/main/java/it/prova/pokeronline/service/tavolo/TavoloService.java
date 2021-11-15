@@ -21,5 +21,9 @@ public interface TavoloService {
 	public List<Tavolo> findByExample(TavoloDTO tavolo, String username);
 	
 	public List<Tavolo> listAllMieiTavoli(Utente user);
+	
+	public Tavolo caricaSingoloTavoloConGiocatori(Long id);
+	
+	public void rimuoviById(Long id);
 
 }
