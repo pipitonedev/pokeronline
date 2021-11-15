@@ -29,5 +29,7 @@ public interface UtenteService {
 	public Utente findByUsername(String username);
 	
 	public int cambioPassword(String vecchia, String nuova, String confermaPassword, String user);
+	
+	public void aggiungiCredito(Utente utenteInstance, int creditoDaAggiungere);
 
 }

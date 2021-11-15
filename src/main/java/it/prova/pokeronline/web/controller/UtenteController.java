@@ -89,7 +89,7 @@ public class UtenteController {
 		redirectAttrs.addFlashAttribute("successMessage", "Operazione eseguita correttamente");
 		return "redirect:/utente";
 	}
-	
+
 	@GetMapping("/edit/{idUtente}")
 	public String edit(@PathVariable(required = true) Long idUtente, Model model) {
 		Utente utenteModel = utenteService.caricaSingoloUtenteConRuoli(idUtente);
@@ -100,7 +100,7 @@ public class UtenteController {
 						RuoloDTO.createRuoloDTOListFromModelSet(utenteModel.getRuoli())));
 		return "utente/edit";
 	}
-	
+
 	@PostMapping("/update")
 	public String update(@Validated(ValidationNoPassword.class) @ModelAttribute("edit_utente_attr") UtenteDTO utenteDTO,
 			BindingResult result, Model model, RedirectAttributes redirectAttrs, HttpServletRequest request) {
@@ -115,7 +115,7 @@ public class UtenteController {
 		redirectAttrs.addFlashAttribute("successMessage", "Operazione eseguita correttamente");
 		return "redirect:/utente";
 	}
-	
+
 	@PostMapping("/cambiaStato")
 	public String cambiaStato(@RequestParam(name = "idUtenteForChangingStato", required = true) Long idUtente) {
 		utenteService.changeUserAbilitation(idUtente);
@@ -127,11 +127,11 @@ public class UtenteController {
 		model.addAttribute("show_utente_attr", utenteService.caricaSingoloUtente(idUtente));
 		return "utente/show";
 	}
-	
+
 	@PostMapping("/resetPassword")
 	public String resetPassword(@RequestParam(name = "idUtenteForResetPassword", required = true) Long idUtente,
 			Model model, RedirectAttributes redirectAttrs, HttpServletRequest request) {
-		
+
 		Utente utente = utenteService.caricaSingoloUtente(idUtente);
 		utente.setPassword("Password@1");
 		utenteService.aggiorna(utente);
@@ -144,7 +144,7 @@ public class UtenteController {
 	public String cambioPassword() {
 		return "utente/resetpassword";
 	}
-	
+
 	@PostMapping("/saveCambioPassword")
 	public String saveCambioPassword(HttpServletRequest request, RedirectAttributes redirectAttrs) {
 
@@ -165,5 +165,18 @@ public class UtenteController {
 		return "redirect:/logout";
 	}
 
+	@GetMapping("/ricarica")
+	public String ricaricaCredito(Model model) {
+		return "utente/aggiungicredito";
+	}
+
+	@PostMapping("/addcredito")
+	public String addCredito(Model model, HttpServletRequest request) {
+		int creditoDaAggiungere = Integer.parseInt(request.getParameter("ricarica"));
+		Utente utenteInSessione = (Utente) request.getSession().getAttribute("userInfo");
+
+		utenteService.aggiungiCredito(utenteInSessione, creditoDaAggiungere);
+		return "index";
+	}
 
 }

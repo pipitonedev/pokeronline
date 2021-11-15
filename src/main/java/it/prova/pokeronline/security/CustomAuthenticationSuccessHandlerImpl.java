@@ -30,6 +30,7 @@ public class CustomAuthenticationSuccessHandlerImpl implements AuthenticationSuc
 		Utente utenteFromDb = utenteRepository.findByUsername(authentication.getName()).orElseThrow(
 				() -> new UsernameNotFoundException("Username " + authentication.getName() + " not found"));
 		Utente utenteParziale = new Utente();
+		utenteParziale.setId(utenteFromDb.getId());
 		utenteParziale.setNome(utenteFromDb.getNome());
 		utenteParziale.setCognome(utenteFromDb.getCognome());
 		request.getSession().setAttribute("userInfo", utenteParziale);

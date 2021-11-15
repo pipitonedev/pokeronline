@@ -26,26 +26,26 @@ public class CustomTavoloRepositoryImpl implements CustomTavoloRepository {
 		String gioc = "";
 
 		StringBuilder queryBuilder = new StringBuilder(
-				"select distinct r from Tavolo r join fetch r.utenteCreatore uc join fetch r.giocatori g where r.id = r.id");
+				"select distinct t from Tavolo t join fetch t.utenteCreatore u join fetch t.giocatori g where t.id = t.id");
 
 		if (StringUtils.isNotEmpty(example.getDenominazione())) {
-			whereClauses.add(" r.denominazione  like :denominazione ");
+			whereClauses.add(" t.denominazione  like :denominazione ");
 			paramaterMap.put("denominazione", "%" + example.getDenominazione() + "%");
 		}
 		if (example.getDateCreated() != null) {
-			whereClauses.add(" r.dateCreated >= :dateCreated ");
+			whereClauses.add(" t.dateCreated >= :dateCreated ");
 			paramaterMap.put("dateCreated", example.getDateCreated());
 		}
 		if (example.getEsperienzaMin() > 0) {
-			whereClauses.add(" r.esperienzaMin >= :esperienzaMin ");
+			whereClauses.add(" t.esperienzaMin >= :esperienzaMin ");
 			paramaterMap.put("esperienzaMin", "%" + example.getEsperienzaMin() + "%");
 		}
 		if (example.getCifraMin() > 0) {
-			whereClauses.add(" r.cifraMin >= :cifraMin ");
+			whereClauses.add(" t.cifraMin >= :cifraMin ");
 			paramaterMap.put("cifraMin", example.getCifraMin());
 		}
 		if (example.getUtenteCreatore() != null) {
-			whereClauses.add(" uc.id = :idUtenteCreatore ");
+			whereClauses.add(" u.id = :idUtenteCreatore ");
 			paramaterMap.put("idUtenteCreatore", example.getUtenteCreatore().getId());
 		}
 

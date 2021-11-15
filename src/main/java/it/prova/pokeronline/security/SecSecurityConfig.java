@@ -35,12 +35,12 @@ public class SecSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
     	 http.authorizeRequests()
-         .antMatchers("/assets/**").permitAll()
+    	 .antMatchers("/assets/**").permitAll()
          .antMatchers("/login").permitAll()
-         .antMatchers("/utente/cambioPassword").hasAnyRole("ADMIN", "ROLE_PLAYER", "ROLE_SPECIAL_PLAYER")
-         .antMatchers("/utente/saveCambioPassword").hasAnyRole("ADMIN", "ROLE_PLAYER", "ROLE_SPECIAL_PLAYER")
+         .antMatchers("/utente/cambioPassword").hasAnyRole("ADMIN", "PLAYER", "SPECIAL_PLAYER")
+         .antMatchers("/utente/saveCambioPassword").hasAnyRole("ADMIN", "PLAYER", "SPECIAL_PLAYER")
          .antMatchers("/utente/**").hasRole("ADMIN")
-         .antMatchers("/**").hasAnyRole("ADMIN", "ROLE_PLAYER", "ROLE_SPECIAL_PLAYER")
+         .antMatchers("/tavolo/**").hasAnyRole("ADMIN", "SPECIAL_PLAYER", "PLAYER")
          //.antMatchers("/anonymous*").anonymous()
          .anyRequest().authenticated()
          .and().exceptionHandling().accessDeniedPage("/accessDenied")

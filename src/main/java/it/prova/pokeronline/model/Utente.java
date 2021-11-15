@@ -159,7 +159,7 @@ public class Utente {
 		return creditoAccumulato;
 	}
 
-	public void setCreditoResiduo(Integer creditoAccumulato) {
+	public void setCreditoAccumulato(Integer creditoAccumulato) {
 		this.creditoAccumulato = creditoAccumulato;
 	}
 

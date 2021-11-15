@@ -21,13 +21,14 @@ public class TavoloDTO {
 	@Min(0)
 	private Integer esperienzaMin;
 
-	@NotNull(message = "{cifraMinima.notnull}")
+	@NotNull(message = "{cifraMin.notnull}")
 	@Min(0)
 	private Integer cifraMin;
 
 	@NotBlank(message = "{denominazione.notblank}")
 	private String denominazione;
-
+	
+	@NotNull(message = "{dateCreated.notnull}")
 	private Date dateCreated;
 
 	private UtenteDTO utenteCreatore;
@@ -39,31 +40,20 @@ public class TavoloDTO {
 	public TavoloDTO() {
 	}
 
-	public TavoloDTO(Long id, String denominazione, Date dateCreated, Integer esperienzaMin, Integer cifraMin,
-			UtenteDTO utenteCreatore, Set<Utente> giocatori) {
+	public TavoloDTO(String denominazione,Date dateCreated,  Integer esperienzaMin, Integer cifraMin, UtenteDTO utenteCreatore) {
 		super();
-		this.id = id;
 		this.denominazione = denominazione;
 		this.dateCreated = dateCreated;
 		this.esperienzaMin = esperienzaMin;
 		this.cifraMin = cifraMin;
 		this.utenteCreatore = utenteCreatore;
-		this.giocatori = giocatori;
 	}
+	
 
-	public TavoloDTO(Long id, String denominazione, Date dateCreated, Integer esperienzaMin, Integer cifraMin) {
+	public TavoloDTO(Long id,String denominazione,Integer esperienzaMin, Integer cifraMin) {
 		super();
 		this.id = id;
 		this.denominazione = denominazione;
-		this.dateCreated = dateCreated;
-		this.esperienzaMin = esperienzaMin;
-		this.cifraMin = cifraMin;
-	}
-
-	public TavoloDTO(String denominazione, Date dateCreated, Integer esperienzaMin, Integer cifraMin) {
-		super();
-		this.denominazione = denominazione;
-		this.dateCreated = dateCreated;
 		this.esperienzaMin = esperienzaMin;
 		this.cifraMin = cifraMin;
 	}
@@ -132,20 +122,22 @@ public class TavoloDTO {
 		this.giocatoreCercato = giocatoreCercato;
 	}
 
-	public static TavoloDTO buildTavoloDTOFromModel(Tavolo tavolo) {
-		return new TavoloDTO(tavolo.getId(), tavolo.getDenominazione(), tavolo.getDateCreated(),
-				tavolo.getEsperienzaMin(), tavolo.getCifraMin(),
-				UtenteDTO.buildUtenteDTOFromModel(tavolo.getUtenteCreatore()), tavolo.getGiocatori());
+	public Tavolo buildTavoloModel() {
+		return new Tavolo(this.id, this.denominazione, this.dateCreated, this.esperienzaMin, this.cifraMin, this.utenteCreatore.buildUtenteModel(false));
+	}
+
+	public static TavoloDTO buildTavoloDTOFromModel(Tavolo tavoloModel) {
+		TavoloDTO result = new TavoloDTO(tavoloModel.getId(), tavoloModel.getDenominazione(),
+				tavoloModel.getEsperienzaMin(), tavoloModel.getCifraMin());
+
+
+		return result;
 	}
 
 	public static List<TavoloDTO> createTavoloDTOListFromModelList(List<Tavolo> modelListInput) {
-		return modelListInput.stream().map(registaEntity -> {
-			return TavoloDTO.buildTavoloDTOFromModel(registaEntity);
+		return modelListInput.stream().map(tavoloEntity -> {
+			return TavoloDTO.buildTavoloDTOFromModel(tavoloEntity);
 		}).collect(Collectors.toList());
-	}
-
-	public Tavolo buildTavoloModel() {
-		return new Tavolo(this.id, this.denominazione, this.dateCreated, this.esperienzaMin, this.cifraMin);
 	}
 
 	@Override
