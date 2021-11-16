@@ -1,24 +1,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <header>
-	 <!--
-	<script>
-			function caricaParametri(){
-				$.ajax({
-			        url: "${pageContext.request.contextPath }/user/caricaParametri",
-			        type: 'GET',
-			        dataType: 'json',
-			        success: function(res) {
-			        	$("#credito").html(res[0].credito);
-			        	$("#exp").html(res[0].exp);
-			        }
-			    });
-			}	
-		</script>
-		
-		
-  Fixed navbar -->
- <nav class="navbar navbar-expand-lg navbar-dark bg-primary" aria-label="Eighth navbar example" onload="caricaParametri()">
+
+ <nav class="navbar navbar-expand-lg navbar-dark bg-success" aria-label="Eighth navbar example" onload="caricaParametri()">
 		
     <div class="container">
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExample07" aria-controls="navbarsExample07" aria-expanded="false" aria-label="Toggle navigation">
@@ -60,10 +44,6 @@
       </div>
   
     	 <sec:authorize access="isAuthenticated()">
-	 <!--   	<a  style="margin: 1; color: white">Credito Residuo:</a>&nbsp;
-		<a id="credito" style="margin: 1; color: white"></a>&nbsp; || &nbsp;
-		<a style="margin: 1; color: white">Esperienza Acquisita:</a>&nbsp;
-    	<a id="exp" style="margin: 1; color: white"></a> -->
     	 
 			<div class="nav-item dropdown">
 				<a class="nav-link active dropdown-toggle" style="color:white!important" href="#" id="dropdown01" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

@@ -76,7 +76,7 @@
 			    
 			    <div class='card-footer'>
 			    <form action="${pageContext.request.contextPath}/gioca/avviaGioco/${show_tavolo_attr.id}" method="post">
-						  <button type="submit" name="submit" id="submit" class="btn btn-primary">Gioca</button>
+						  <button type="submit" name="submit" id="submit" class="btn btn-success">Gioca</button>
 				        <a href="${pageContext.request.contextPath }/tavolo/search" class='btn btn-outline-secondary' style='width:80px'>
 				            <i class='fa fa-chevron-left'></i> Back
 				        </a>

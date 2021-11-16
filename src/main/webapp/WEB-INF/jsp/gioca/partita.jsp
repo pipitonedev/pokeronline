@@ -76,10 +76,10 @@
 			    
 			    <div class='card-footer' style="display: -webkit-inline-box">
 					<form action="${pageContext.request.contextPath}/gioca/partita/${show_tavolo_attr.id}" method="post">
-						  <button type="submit" name="submit" id="submit" class="btn btn-primary">Gioca</button>
+						  <button type="submit" name="submit" id="submit" class="btn btn-success">Gioca</button>
 				    </form> &nbsp;&nbsp;
 				    <form action="${pageContext.request.contextPath}/gioca/exit/${show_tavolo_attr.id}" method="post">
-						  <button type="submit" name="submit" id="submit" class="btn btn-dark">Esci</button>
+						  <button type="submit" name="submit" id="submit" class="btn btn-danger">Esci</button>
 					</form>
 				  <br>
 				 	

@@ -32,7 +32,19 @@
 			  </symbol>
 			</svg>
 			<!-- ############## end ###################  -->
-	   
+	   	<script>
+			function caricaParametri(){
+				$.ajax({
+			        url: "${pageContext.request.contextPath }/utente/caricaParametri",
+			        type: 'GET',
+			        dataType: 'json',
+			        success: function(res) {
+			        	$("#credito").html(res[0].credito);
+			        	$("#exp").html(res[0].exp);
+			        }
+			    });
+			}	
+		</script>
 	   
 	   
 	   		<!-- Fixed navbar -->
@@ -52,6 +64,15 @@
 				      <div class="container-fluid py-5">
 				        <h1 class="display-5 fw-bold">Benvenuto al Poker Online!</h1>
 				        <a class="btn btn-success btn-lg" href="${pageContext.request.contextPath}/tavolo/search">Cerca Un tavolo</a>
+				        
+				         <div class="p-5" style="    display: flex;
+												    justify-content: center;
+												    align-items: baseline;
+												    flex-wrap: wrap;
+												    flex-direction: row;">
+				    <h2> Esperienza Utente:</h2>&nbsp;<h2 id="exp" style="margin: 0; color: red"></h2>&nbsp;&nbsp;
+				     <h2> Credito Utente: </h2>&nbsp;<h2 id="credito" style="margin: 0; color: orange"></h2>
+				      </div>
 				      </div>
 			    </div>
 			    

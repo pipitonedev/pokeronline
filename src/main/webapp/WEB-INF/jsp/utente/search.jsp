@@ -73,7 +73,7 @@
 								</div>
 							
 							<div class="col-12">	
-								<button type="submit" name="submit" value="submit" id="submit" class="btn btn-primary">Conferma</button>
+								<button type="submit" name="submit" value="submit" id="submit" class="btn btn-success">Conferma</button>
 								<input class="btn btn-outline-warning" type="reset" value="Ripulisci">
 								<a class="btn btn-outline-primary ml-2" href="${pageContext.request.contextPath}/utente/insert">Add New</a>
 							</div>

@@ -64,15 +64,16 @@
 								<sec:authorize access="hasRole('ADMIN')">
 									<div class="col-md-6">
 										<label for="utenteCreatoreSearchInput" class="form-label">Creatore tavolo:</label>
-										<input class="form-control " type="text" id="utenteCreatoreId"
-												name="utenteCreatoreInput" value="${search_gestione_tavolo_attr.utenteCreatore.nome}">
-										<input type="hidden" name="utenteCreatore.id" id="utenteCreatoreId" value="${search_gestione_tavolo_attr.utenteCreatore.id}">
+										<input class="form-control " type="text" id="utenteCreatoreInputId"
+												name="utenteCreatoreInput" >
+										<input type="hidden" name="utenteCreatore.id" id="utenteCreatoreId" >
 									</div>
 								</sec:authorize>
 								
+								
 									
 								<div class="col-12">
-									<button type="submit" name="submit" value="submit" id="submit" class="btn btn-primary">Conferma</button>
+									<button type="submit" name="submit" value="submit" id="submit" class="btn btn-success">Conferma</button>
 									<input class="btn btn-outline-warning" type="reset" value="Ripulisci">
 									<a class="btn btn-outline-primary ml-2" href="${pageContext.request.contextPath }/tavolo/insert">Add New</a>
 								</div>
@@ -80,10 +81,10 @@
 							</form>
 		
 				    		<script>
-								$("#utenteCreatoreId").autocomplete({
+								$("#utenteCreatoreInputId").autocomplete({
 									 source: function(request, response) {
 									        $.ajax({
-									            url: "${pageContext.request.contextPath }/user/searchUtentiAjax",
+									            url: "${pageContext.request.contextPath }/utente/searchUtentiAjax",
 									            datatype: "json",
 									            data: {
 									                term: request.term,   
@@ -100,7 +101,7 @@
 									    },
 									//quando seleziono la voce nel campo deve valorizzarsi la descrizione
 								    focus: function(event, ui) {
-								        $("#utenteCreatoreId").val(ui.item.label)
+								        $("#utenteCreatoreInputId").val(ui.item.label)
 								        return false
 								    },
 								    minLength: 2,

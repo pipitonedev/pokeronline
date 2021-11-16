@@ -180,11 +180,13 @@ public class UtenteController {
 	}
 
 	@PostMapping("/addcredito")
-	public String addCredito(Model model, HttpServletRequest request) {
+	public String addCredito(Model model,RedirectAttributes redirectAttrs, HttpServletRequest request) {
 		int creditoDaAggiungere = Integer.parseInt(request.getParameter("ricarica"));
 		String utenteInSessione = request.getUserPrincipal().getName();
 		utenteService.aggiungiCredito(utenteInSessione, creditoDaAggiungere);
-		return "index";
+		
+		redirectAttrs.addFlashAttribute("successMessage", "Credito caricato correttamente!");
+		return "redirect:/home";
 	}
 
 	@GetMapping(value = "/searchUtentiAjax", produces = { MediaType.APPLICATION_JSON_VALUE })
@@ -237,6 +239,24 @@ public class UtenteController {
 
 		redirectAttrs.addFlashAttribute("successMessage", "Operazione eseguita correttamente");
 		return "redirect:login";
+	}
+	
+	private String buildJsonResponseSingleUser(Utente utente) {
+		JsonArray ja = new JsonArray();
+
+		JsonObject jo = new JsonObject();
+		jo.addProperty("credito", utente.getCreditoAccumulato());
+		jo.addProperty("exp", utente.getEsperienzaAccumulata());
+		ja.add(jo);
+
+		return new Gson().toJson(ja);
+	}
+	
+	@GetMapping("/caricaParametri")
+	public @ResponseBody String caricaParametri(HttpServletRequest request) {
+		
+		Utente utente = utenteService.findByUsername(request.getUserPrincipal().getName());
+		return buildJsonResponseSingleUser(utente);
 	}
 
 }

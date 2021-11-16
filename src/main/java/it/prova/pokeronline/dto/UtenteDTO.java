@@ -198,7 +198,7 @@ public class UtenteDTO {
 		return result;
 	}
 
-	// niente password...
+
 	public static UtenteDTO buildUtenteDTOFromModel(Utente utenteModel) {
 		return new UtenteDTO(utenteModel.getId(), utenteModel.getUsername(), utenteModel.getNome(),
 				utenteModel.getCognome(), utenteModel.getStato(), utenteModel.getEsperienzaAccumulata(),

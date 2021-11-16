@@ -41,7 +41,7 @@
 				        <h5>Lista dei risultati</h5> 
 				    </div>
 				    <div class='card-body'>
-				    	<a class="btn btn-primary " href="${pageContext.request.contextPath}/tavolo/insert">Add New</a>
+				    	<a class="btn btn-success " href="${pageContext.request.contextPath}/tavolo/insert">Add New</a>
 				    	<a href="${pageContext.request.contextPath }/tavolo/search" class='btn btn-outline-secondary' >
 				            <i class='fa fa-chevron-left'></i> Torna alla Ricerca
 				        </a>
@@ -68,8 +68,6 @@
 												<a class="btn  btn-sm btn-outline-secondary" href="${pageContext.request.contextPath}/tavolo/show/${tavoloItem.id }">Visualizza</a>
 												<a class="btn  btn-sm btn-outline-primary ml-2 mr-2" href="${pageContext.request.contextPath}/tavolo/modifica/${tavoloItem.id }">Edit</a>
 												<a class="btn btn-outline-danger btn-sm" href="${pageContext.request.contextPath}/tavolo/delete/${tavoloItem.id }">Delete</a>
-												<a class="btn  btn-sm btn-outline-secondary" href="${pageContext.request.contextPath}/gioca/partita/${tavoloItem.id }">Gioca</a>
-											</td>
 										</tr>
 									</c:forEach>
 				                </tbody>
