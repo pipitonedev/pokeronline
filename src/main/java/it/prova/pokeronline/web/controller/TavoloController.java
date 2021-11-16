@@ -31,10 +31,10 @@ import it.prova.pokeronline.dto.UtenteDTO;
 public class TavoloController {
 
 	@Autowired
-	TavoloService tavoloService;
+	private TavoloService tavoloService;
 	
 	@Autowired
-	UtenteService utenteService;
+	private UtenteService utenteService;
 
 	@GetMapping
 	public ModelAndView listAllTavoli() {
@@ -52,13 +52,11 @@ public class TavoloController {
 	}
 
 	@PostMapping("/list")
-	public String listTavoli(@ModelAttribute("search_tavolo_attr") TavoloDTO tavoloDTO, Model model, 
-			RedirectAttributes redirectAttrs, HttpServletRequest request) {
+	public String listTavoli(TavoloDTO tavoloExample, ModelMap model) {
 		
-		List<Tavolo> tavoli = tavoloService.findByExample(tavoloDTO, request.getUserPrincipal().getName());
-
+		List<Tavolo> tavoli = tavoloService.listAllElements();
 		model.addAttribute("tavolo_list_attribute", TavoloDTO.createTavoloDTOListFromModelList(tavoli));
-		return "tavolo/list";
+		return "tavolo/listagenerica";
 	}
 	
 	@GetMapping("/imieitavoli")
@@ -119,7 +117,7 @@ public class TavoloController {
 		tavoloDTO.setGiocatori(tavolo.getGiocatori());
 		tavoloDTO.setUtenteCreatore(UtenteDTO.buildUtenteDTOFromModel(tavolo.getUtenteCreatore()));
 		
-		tavoloService.inserisciNuovo(tavoloDTO.buildTavoloModel());
+		tavoloService.aggiorna(tavoloDTO.buildTavoloModel());
 
 		redirectAttrs.addFlashAttribute("successMessage", "Operazione eseguita correttamente");
 		return "redirect:/tavolo/imieitavoli";
@@ -147,6 +145,23 @@ public class TavoloController {
 				.listAllMieiTavoli(utenteService.findByUsername(request.getUserPrincipal().getName()));
 		model.addAttribute("tavolo_list_attribute", tavoli);
 
+		return "tavolo/list";
+	}
+	
+	@GetMapping("/gestione")
+	public String gestione(Model model) {
+
+		model.addAttribute("search_gestione_tavolo_attr", new TavoloDTO());
+		return "tavolo/searchGestioneTavolo";
+	}
+
+	@PostMapping("/listGestione")
+	public String listGestione(@ModelAttribute("search_gestione_tavolo_attr") TavoloDTO tavoloDTO, Model model,
+			RedirectAttributes redirectAttrs, HttpServletRequest request) {
+		
+		List<Tavolo> tavoli = tavoloService.findByExample(tavoloDTO, request.getUserPrincipal().getName());
+
+		model.addAttribute("tavolo_list_attribute", TavoloDTO.createTavoloDTOListFromModelList(tavoli));
 		return "tavolo/list";
 	}
 

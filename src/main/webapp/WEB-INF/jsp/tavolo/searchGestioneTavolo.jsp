@@ -4,11 +4,8 @@
 <html lang="it" class="h-100">
 	<head>
 		<jsp:include page="../header.jsp" />
-		<title>Ricerca</title>
-	</head>
-	<body class="d-flex flex-column h-100">
-		<jsp:include page="../navbar.jsp" />
-		<link rel="stylesheet" href="${pageContext.request.contextPath }/assets/css/jqueryUI/jquery-ui.min.css" />
+		
+		  <link rel="stylesheet" href="${pageContext.request.contextPath }/assets/css/jqueryUI/jquery-ui.min.css" />
 		<style>
 			.ui-autocomplete-loading {
 				background: white url("../assets/img/jqueryUI/anim_16x16.gif") right center no-repeat;
@@ -17,6 +14,14 @@
 		        color: red; 
 		    }
 		</style>
+		
+		<title>Ricerca</title>
+	</head>
+	<body class="d-flex flex-column h-100">
+		<jsp:include page="../navbar.jsp" />
+		
+		
+		
 		
 		<!-- Begin page content -->
 		<main class="flex-shrink-0">
@@ -33,35 +38,35 @@
 				    </div>
 				    <div class='card-body'>
 		
-							<form method="post" action="list" class="row g-3">
+							<form method="post" action="listGestione" class="row g-3">
 							
 								<div class="col-md-6">
 									<label for="denominazione" class="form-label">Denominazione</label>
-									<input type="text" name="denominazione" id="denominazione" class="form-control" placeholder="Inserire denominazione" value="${search_tavolo_attr.denominazione}">
+									<input type="text" name="denominazione" id="denominazione" class="form-control" placeholder="Inserire denominazione" value="${search_gestione_tavolo_attr.denominazione}">
 								</div>
 								
 								<div class="col-md-6">
 									<label for="dateCreated" class="form-label">Data di Creazione</label>
 	                        		<input class="form-control" id="dateCreated" type="date" placeholder="dd/MM/yy"
-	                            		title="formato : gg/mm/aaaa"  name="dateCreated" value="${search_tavolo_attr.dateCreated}">
+	                            		title="formato : gg/mm/aaaa"  name="dateCreated" value="${search_gestione_tavolo_attr.dateCreated}">
 								</div>
 								
 								<div class="col-md-6">
 									<label for="cifraMin" class="form-label">Cifra minima</label>
-									<input type="number" name="cifraMin" id="cifraMin" class="form-control" placeholder="Inserire cifra minima" value="${search_tavolo_attr.cifraMin}">
+									<input type="number" name="cifraMin" id="cifraMin" class="form-control" placeholder="Inserire cifra minima" value="${search_gestione_tavolo_attr.cifraMin}">
 								</div>
 								
 								<div class="col-md-6">
-									<label for="esperienzaMin" class="form-label">Esperienza minima</label>
-									<input type="number" class="form-control" name="esperienzaMin" id="esperienzaMin" placeholder="Inserire esperienza minima" value="${search_tavolo_attr.esperienzaMin}">
+									<label for="esperienzaMinima" class="form-label">Esperienza minima</label>
+									<input type="number" class="form-control" name="esperienzaMinima" id="esperienzaMinima" placeholder="Inserire esperienza minima" value="${search_gestione_tavolo_attr.esperienzaMin}">
 								</div>
 								
 								<sec:authorize access="hasRole('ADMIN')">
 									<div class="col-md-6">
 										<label for="utenteCreatoreSearchInput" class="form-label">Creatore tavolo:</label>
-										<input class="form-control " type="text" id="utenteCreatoreSearchInput"
-												name="utenteCreatoreInput" value="${search_tavolo_attr.utenteCreatore.nome}${search_tavolo_attr.utenteCreatore.cognome}">
-										<input type="hidden" name="utenteCreatore.id" id="utenteCreatoreId" value="${search_tavolo_attr.utenteCreatore.id}">
+										<input class="form-control " type="text" id="utenteCreatoreId"
+												name="utenteCreatoreInput" value="${search_gestione_tavolo_attr.utenteCreatore.nome}">
+										<input type="hidden" name="utenteCreatore.id" id="utenteCreatoreId" value="${search_gestione_tavolo_attr.utenteCreatore.id}">
 									</div>
 								</sec:authorize>
 								
@@ -69,16 +74,16 @@
 								<div class="col-12">
 									<button type="submit" name="submit" value="submit" id="submit" class="btn btn-primary">Conferma</button>
 									<input class="btn btn-outline-warning" type="reset" value="Ripulisci">
-									<a class="btn btn-outline-success ml-2" href="${pageContext.request.contextPath }/tavolo/insert">Add New</a>
+									<a class="btn btn-outline-primary ml-2" href="${pageContext.request.contextPath }/tavolo/insert">Add New</a>
 								</div>
 								
 							</form>
 		
 				    		<script>
-								$("#utenteCreatoreSearchInput").autocomplete({
+								$("#utenteCreatoreId").autocomplete({
 									 source: function(request, response) {
 									        $.ajax({
-									            url: "${pageContext.request.contextPath }/utente/searchUtentiAjax",
+									            url: "${pageContext.request.contextPath }/user/searchUtentiAjax",
 									            datatype: "json",
 									            data: {
 									                term: request.term,   
@@ -95,13 +100,13 @@
 									    },
 									//quando seleziono la voce nel campo deve valorizzarsi la descrizione
 								    focus: function(event, ui) {
-								        $("#utenteCreatoreSearchInput").val(ui.item.label)
+								        $("#utenteCreatoreId").val(ui.item.label)
 								        return false
 								    },
 								    minLength: 2,
 								    //quando seleziono la voce nel campo hidden deve valorizzarsi l'id
 								    select: function( event, ui ) {
-								    	$('#utenteCreatoreSearchInputId').val(ui.item.value);
+								    	$('#utenteCreatoreId').val(ui.item.value);
 								    	//console.log($('#registaId').val())
 								        return false;
 								    }

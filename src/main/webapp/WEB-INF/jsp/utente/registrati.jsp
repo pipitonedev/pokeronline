@@ -13,20 +13,17 @@
 		    }
 		</style>
 	   
-	   <title>Registrati</title>
+	   <title>Registrazione</title>
 	 </head>
 	   <body class="d-flex flex-column h-100">
 	   
-	   		<!-- Fixed navbar -->
-	   		<jsp:include page="../navbar.jsp"></jsp:include>
-	    
-			
+	 
 			<!-- Begin page content -->
 			<main class="flex-shrink-0">
 			  <div class="container">
 			  
 			  		<%-- se l'attributo in request ha errori --%>
-					<spring:hasBindErrors  name="insert_utente_attr">
+					<spring:hasBindErrors  name="registra_utente_attr">
 						<%-- alert errori --%>
 						<div class="alert alert-danger " role="alert">
 							Attenzione!! Sono presenti errori di validazione
@@ -40,20 +37,20 @@
 			  
 			  <div class='card'>
 				    <div class='card-header'>
-				        <h5>Modulo di registrazione</h5> 
+				        <h5>Registrati</h5> 
 				    </div>
 				    <div class='card-body'>
 		
 							<h6 class="card-title">I campi con <span class="text-danger">*</span> sono obbligatori</h6>
 		
 		
-							<form:form modelAttribute="insert_utente_attr" method="post" action="saveUtente" novalidate="novalidate" class="row g-3">
+							<form:form modelAttribute="registra_utente_attr" method="post" action="${pageContext.request.contextPath}/utente/registrazione" novalidate="novalidate" class="row g-3">
 					
 							
 								<div class="col-md-6">
 									<label for="nome" class="form-label">Nome <span class="text-danger">*</span></label>
 									<spring:bind path="nome">
-										<input type="text" name="nome" id="nome" class="form-control ${status.error ? 'is-invalid' : ''}" placeholder="Inserire il nome" value="${insert_utente_attr.nome }" required>
+										<input type="text" name="nome" id="nome" class="form-control ${status.error ? 'is-invalid' : ''}" placeholder="Inserire il nome" value="${registra_utente_attr.nome }" required>
 									</spring:bind>
 									<form:errors  path="nome" cssClass="error_field" />
 								</div>
@@ -61,14 +58,14 @@
 								<div class="col-md-6">
 									<label for="cognome" class="form-label">Cognome <span class="text-danger">*</span></label>
 									<spring:bind path="cognome">
-										<input type="text" name="cognome" id="cognome" class="form-control ${status.error ? 'is-invalid' : ''}" placeholder="Inserire il cognome" value="${insert_utente_attr.cognome }" required>
+										<input type="text" name="cognome" id="cognome" class="form-control ${status.error ? 'is-invalid' : ''}" placeholder="Inserire il cognome" value="${registra_utente_attr.cognome }" required>
 									</spring:bind>
 									<form:errors  path="cognome" cssClass="error_field" />
 								</div>
 								<div class="col-md-6">
 									<label for="username" class="form-label">Username <span class="text-danger">*</span></label>
 									<spring:bind path="username">
-										<input type="text" class="form-control ${status.error ? 'is-invalid' : ''}" name="username" id="username" placeholder="Inserire Username" value="${insert_utente_attr.username }" required>
+										<input type="text" class="form-control ${status.error ? 'is-invalid' : ''}" name="username" id="username" placeholder="Inserire Username" value="${registra_utente_attr.username }" required>
 									</spring:bind>
 									<form:errors  path="username" cssClass="error_field" />
 								</div>
@@ -88,15 +85,14 @@
 									</spring:bind>
 									<form:errors  path="confermaPassword" cssClass="error_field" />
 								</div>
-								
-								
-
+								<input type="hidden" name="creditoAccumulato" value="${0}">
+								<input type="hidden" name="esperienzaAccumulata" value="${0}">
 								
 								<div class="col-12">
-									<button type="submit" name="submit" value="submit" id="submit" class="btn btn-success">Conferma</button>
+									<button type="submit" name="submit" value="submit" id="submit" class="btn btn-primary">Conferma</button>
 									<input class="btn btn-outline-warning" type="reset" value="Ripulisci">
-									<a href="${pageContext.request.contextPath}/utente/search" class='btn btn-outline-secondary' >
-				            			<i class='fa fa-chevron-left'></i> Torna alla Ricerca
+									<a href="${pageContext.request.contextPath}/login	" class='btn btn-outline-secondary' >
+				            			<i class='fa fa-chevron-left'></i> Back
 				    			    </a>
 								</div>
 		

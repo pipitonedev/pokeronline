@@ -26,6 +26,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
 import it.prova.pokeronline.dto.UtenteDTO;
+import it.prova.pokeronline.model.StatoUtente;
 import it.prova.pokeronline.model.Utente;
 import it.prova.pokeronline.service.ruolo.RuoloService;
 import it.prova.pokeronline.service.utente.UtenteService;
@@ -76,6 +77,8 @@ public class UtenteController {
 		return "utente/insert";
 	}
 
+	// per la validazione devo usare i groups in quanto nella insert devo validare
+	// la pwd, nella edit no
 	@PostMapping("/save")
 	public String save(
 			@Validated({ ValidationWithPassword.class,
@@ -180,8 +183,6 @@ public class UtenteController {
 	public String addCredito(Model model, HttpServletRequest request) {
 		int creditoDaAggiungere = Integer.parseInt(request.getParameter("ricarica"));
 		String utenteInSessione = request.getUserPrincipal().getName();
-		System.out.println(creditoDaAggiungere);
-		System.out.println(utenteInSessione);
 		utenteService.aggiungiCredito(utenteInSessione, creditoDaAggiungere);
 		return "index";
 	}
@@ -204,6 +205,39 @@ public class UtenteController {
 		}
 
 		return new Gson().toJson(ja);
+	}
+	
+	@GetMapping("/autoInsert")
+	public String autoInsert(Model model) {
+		model.addAttribute("mappaRuoliConSelezionati_attr", UtilityForm
+				.buildCheckedRolesForPages(RuoloDTO.createRuoloDTOListFromModelList(ruoloService.listAll()), null));
+		model.addAttribute("registra_utente_attr", new UtenteDTO());
+		return "/utente/registrati";
+	}
+	
+	@PostMapping("/registrazione")
+	public String registrazione(
+			@Validated({ ValidationWithPassword.class,
+					ValidationNoPassword.class }) @ModelAttribute("registra_utente_attr") UtenteDTO utenteDTO,
+			BindingResult result, Model model, RedirectAttributes redirectAttrs) {
+
+		if (!result.hasFieldErrors("password") && !utenteDTO.getPassword().equals(utenteDTO.getConfermaPassword()))
+			result.rejectValue("confermaPassword", "password.diverse");
+
+		if (result.hasErrors()) {
+			model.addAttribute("mappaRuoliConSelezionati_attr", UtilityForm.buildCheckedRolesForPages(
+					RuoloDTO.createRuoloDTOListFromModelList(ruoloService.listAll()), utenteDTO.getRuoliIds()));
+			return "/utente/registrazione";
+		}
+		
+		RuoloDTO ruoloDaAssegnare = RuoloDTO.buildRuoloDTOFromModel(ruoloService.cercaPerDescrizioneECodice("Player User", "ROLE_PLAYER"));
+		utenteDTO.getRuoli().add(ruoloDaAssegnare);
+		utenteDTO.setStato(StatoUtente.CREATO);
+		
+		utenteService.inserisciNuovo(utenteDTO.buildUtenteModel(true));
+
+		redirectAttrs.addFlashAttribute("successMessage", "Operazione eseguita correttamente");
+		return "redirect:login";
 	}
 
 }
