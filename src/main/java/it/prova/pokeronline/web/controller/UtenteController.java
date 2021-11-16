@@ -211,14 +211,14 @@ public class UtenteController {
 	public String autoInsert(Model model) {
 		model.addAttribute("mappaRuoliConSelezionati_attr", UtilityForm
 				.buildCheckedRolesForPages(RuoloDTO.createRuoloDTOListFromModelList(ruoloService.listAll()), null));
-		model.addAttribute("registra_utente_attr", new UtenteDTO());
+		model.addAttribute("insert_utente_attr", new UtenteDTO());
 		return "/utente/registrati";
 	}
 	
 	@PostMapping("/registrazione")
 	public String registrazione(
 			@Validated({ ValidationWithPassword.class,
-					ValidationNoPassword.class }) @ModelAttribute("registra_utente_attr") UtenteDTO utenteDTO,
+					ValidationNoPassword.class }) @ModelAttribute("insert_utente_attr") UtenteDTO utenteDTO,
 			BindingResult result, Model model, RedirectAttributes redirectAttrs) {
 
 		if (!result.hasFieldErrors("password") && !utenteDTO.getPassword().equals(utenteDTO.getConfermaPassword()))
@@ -227,13 +227,12 @@ public class UtenteController {
 		if (result.hasErrors()) {
 			model.addAttribute("mappaRuoliConSelezionati_attr", UtilityForm.buildCheckedRolesForPages(
 					RuoloDTO.createRuoloDTOListFromModelList(ruoloService.listAll()), utenteDTO.getRuoliIds()));
-			return "/utente/registrazione";
+			return "/utente/registrati";
 		}
-		
-		RuoloDTO ruoloDaAssegnare = RuoloDTO.buildRuoloDTOFromModel(ruoloService.cercaPerDescrizioneECodice("Player User", "ROLE_PLAYER"));
-		utenteDTO.getRuoli().add(ruoloDaAssegnare);
-		utenteDTO.setStato(StatoUtente.CREATO);
-		
+
+		Long[] id = { 3L };
+		utenteDTO.setRuoliIds(id);
+
 		utenteService.inserisciNuovo(utenteDTO.buildUtenteModel(true));
 
 		redirectAttrs.addFlashAttribute("successMessage", "Operazione eseguita correttamente");

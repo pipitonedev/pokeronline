@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -40,6 +41,16 @@ public class UtenteDTO {
 
 	private Date dateCreated;
 
+	@NotNull(message = "{esperienzaAccumulata.notnull}", groups = { ValidationWithPassword.class,
+			ValidationNoPassword.class })
+	@Min(0)
+	private Integer esperienzaAccumulata;
+
+	@NotNull(message = "{creditoAccumulato.notnull}", groups = { ValidationWithPassword.class,
+			ValidationNoPassword.class })
+	@Min(0)
+	private Integer creditoAccumulato;
+
 	private StatoUtente stato;
 
 	private Long[] ruoliIds;
@@ -55,6 +66,29 @@ public class UtenteDTO {
 		this.username = username;
 		this.nome = nome;
 		this.cognome = cognome;
+		this.stato = stato;
+		this.ruoli = new HashSet<>(ruoliList);
+	}
+
+	public UtenteDTO(String username, String nome, String cognome, StatoUtente stato, Integer esperienzaAccumulata,
+			Integer creditoAccumulato) {
+		this.username = username;
+		this.nome = nome;
+		this.cognome = cognome;
+		this.esperienzaAccumulata = esperienzaAccumulata;
+		this.creditoAccumulato = creditoAccumulato;
+		this.stato = stato;
+	}
+
+	public UtenteDTO(Long id, String username, String nome, String cognome, StatoUtente stato,
+			Integer esperienzaAccumulata, Integer creditoAccumulato, List<RuoloDTO> ruoliList) {
+		super();
+		this.id = id;
+		this.username = username;
+		this.nome = nome;
+		this.cognome = cognome;
+		this.esperienzaAccumulata = esperienzaAccumulata;
+		this.creditoAccumulato = creditoAccumulato;
 		this.stato = stato;
 		this.ruoli = new HashSet<>(ruoliList);
 	}
@@ -123,6 +157,22 @@ public class UtenteDTO {
 		this.stato = stato;
 	}
 
+	public Integer getEsperienzaAccumulata() {
+		return esperienzaAccumulata;
+	}
+
+	public void setEsperienzaAccumulata(Integer esperienzaAccumulata) {
+		this.esperienzaAccumulata = esperienzaAccumulata;
+	}
+
+	public Integer getCreditoAccumulato() {
+		return creditoAccumulato;
+	}
+
+	public void setCreditoAccumulato(Integer creditoAccumulato) {
+		this.creditoAccumulato = creditoAccumulato;
+	}
+
 	public Long[] getRuoliIds() {
 		return ruoliIds;
 	}
@@ -141,17 +191,17 @@ public class UtenteDTO {
 
 	public Utente buildUtenteModel(boolean includeIdRoles) {
 		Utente result = new Utente(this.id, this.username, this.password, this.nome, this.cognome, this.dateCreated,
-				this.stato);
+				this.stato, this.esperienzaAccumulata, this.creditoAccumulato);
 		if (includeIdRoles && ruoliIds != null)
 			result.setRuoli(Arrays.asList(ruoliIds).stream().map(id -> new Ruolo(id)).collect(Collectors.toSet()));
 
 		return result;
 	}
 
-	//niente password...
+	// niente password...
 	public static UtenteDTO buildUtenteDTOFromModel(Utente utenteModel) {
 		return new UtenteDTO(utenteModel.getId(), utenteModel.getUsername(), utenteModel.getNome(),
-				utenteModel.getCognome(), utenteModel.getStato(),
-				RuoloDTO.createRuoloDTOListFromModelSet(utenteModel.getRuoli()));
+				utenteModel.getCognome(), utenteModel.getStato(), utenteModel.getEsperienzaAccumulata(),
+				utenteModel.getCreditoAccumulato(), RuoloDTO.createRuoloDTOListFromModelSet(utenteModel.getRuoli()));
 	}
 }
