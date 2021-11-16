@@ -9,7 +9,7 @@
 	   
 	   <title>Poker Online</title>
 	 </head>
-	   <body class="d-flex flex-column h-100">
+	   <body class="d-flex flex-column h-100"  onload="caricaParametri()">
 	   		
 	   		<!-- #####################################  -->
 	   		<!-- elementi grafici per le features in basso  -->
@@ -71,7 +71,7 @@
 												    flex-wrap: wrap;
 												    flex-direction: row;">
 				    <h2> Esperienza Utente:</h2>&nbsp;<h2 id="exp" style="margin: 0; color: red"></h2>&nbsp;&nbsp;
-				     <h2> Credito Utente: </h2>&nbsp;<h2 id="credito" style="margin: 0; color: orange"></h2>
+				     <h2>  Credito Utente: </h2>&nbsp;<h2 id="credito" style="margin: 0; color: orange"></h2>
 				      </div>
 				      </div>
 			    </div>
