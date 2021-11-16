@@ -114,7 +114,6 @@ public class CustomTavoloRepositoryImpl implements CustomTavoloRepository {
 	public List<Tavolo> findByExampleGenerico(TavoloDTO example) {
 		Map<String, Object> paramaterMap = new HashMap<String, Object>();
 		List<String> whereClauses = new ArrayList<String>();
-		String gioc = "";
 
 		if (example.getEsperienzaMin() == null)
 			example.setEsperienzaMin(0);
@@ -123,9 +122,9 @@ public class CustomTavoloRepositoryImpl implements CustomTavoloRepository {
 			example.setCifraMin(0);
 
 		StringBuilder queryBuilder = new StringBuilder(
-				"select distinct r from Tavolo r join fetch r.utenteCreatore uc ");
+				"select distinct r from Tavolo r join fetch r.utenteCreatore uc left join fetch r.giocatori gio where r.id = r.id ");
 
-		if (StringUtils.isNotEmpty(example.getDenominazione())) {
+		if (StringUtils.isNotBlank(example.getDenominazione())) {
 			whereClauses.add(" r.denominazione  like :denominazione ");
 			paramaterMap.put("denominazione", "%" + example.getDenominazione() + "%");
 		}
@@ -135,7 +134,7 @@ public class CustomTavoloRepositoryImpl implements CustomTavoloRepository {
 		}
 		if (example.getEsperienzaMin() >= 0) {
 			whereClauses.add(" r.esperienzaMin >= :esperienzaMin ");
-			paramaterMap.put("esperienzaMin",example.getEsperienzaMin());
+			paramaterMap.put("esperienzaMin", example.getEsperienzaMin());
 		}
 		if (example.getCifraMin() >= 0) {
 			whereClauses.add(" r.cifraMin >= :cifraMin ");
@@ -145,25 +144,14 @@ public class CustomTavoloRepositoryImpl implements CustomTavoloRepository {
 			whereClauses.add(" uc.id = :idUtenteCreatore ");
 			paramaterMap.put("idUtenteCreatore", example.getUtenteCreatore().getId());
 		}
-
-		if (example.getGiocatori() != null && example.getGiocatori().size() > 0) {
-			int i = 0;
-			for (Utente giocatore : example.getGiocatori()) {
-				
-				if(giocatore.getId() != null) {
-					queryBuilder.append(" join fetch r.giocatori g ");
-					if (i == 0)
-						gioc += " g.id = " + giocatore.getId();
-					else
-						gioc += " or g.id = " + giocatore.getId();
-					i++;
-				}
-			}
+		if (example.getGiocatoreCercato() != null && example.getGiocatoreCercato().getId() != null) {
+			whereClauses.add(" gio.id = :giocatoreCercatoId ");
+			paramaterMap.put("giocatoreCercatoId", example.getGiocatoreCercato().getId());
 		}
 
-		queryBuilder.append(" where r.id = r.id ");
-		queryBuilder.append(!whereClauses.isEmpty()?" and ":"");
+		queryBuilder.append(!whereClauses.isEmpty() ? " and " : "");
 		queryBuilder.append(StringUtils.join(whereClauses, " and "));
+		System.out.println(queryBuilder);
 		TypedQuery<Tavolo> typedQuery = entityManager.createQuery(queryBuilder.toString(), Tavolo.class);
 
 		for (String key : paramaterMap.keySet()) {
@@ -171,6 +159,5 @@ public class CustomTavoloRepositoryImpl implements CustomTavoloRepository {
 		}
 
 		return typedQuery.getResultList();
-
 	}
 }

@@ -190,6 +190,18 @@ public class UtenteController {
 		return "redirect:/home";
 	}
 
+	@GetMapping("/goToMyLastGame")
+	public String goToMyLastGame(Model model, HttpServletRequest request) {
+		Utente utente = utenteService.findByUsername(request.getUserPrincipal().getName());
+		Tavolo tavoloPerGiocare = utente.getTavolo();
+
+		if (utente.getTavolo() == null)
+			return "index";
+
+		model.addAttribute("show_tavolo_attr", tavoloPerGiocare);
+		return "gioca/partita";
+	}
+	
 	@GetMapping(value = "/searchUtentiAjax", produces = { MediaType.APPLICATION_JSON_VALUE })
 	public @ResponseBody String searchTavolo(@RequestParam String term) {
 
@@ -209,9 +221,14 @@ public class UtenteController {
 
 		return new Gson().toJson(ja);
 	}
-	
-	
-	
+
+	@GetMapping("/caricaParametri")
+	public @ResponseBody String caricaParametri(HttpServletRequest request) {
+
+		Utente utente = utenteService.findByUsername(request.getUserPrincipal().getName());
+		return buildJsonResponseSingleUser(utente);
+	}
+
 	private String buildJsonResponseSingleUser(Utente utente) {
 		JsonArray ja = new JsonArray();
 
@@ -221,25 +238,6 @@ public class UtenteController {
 		ja.add(jo);
 
 		return new Gson().toJson(ja);
-	}
-	
-	@GetMapping("/caricaParametri")
-	public @ResponseBody String caricaParametri(HttpServletRequest request) {
-		
-		Utente utente = utenteService.findByUsername(request.getUserPrincipal().getName());
-		return buildJsonResponseSingleUser(utente);
-	}
-	
-	@GetMapping("/goToMyLastGame")
-	public String goToMyLastGame(Model model, HttpServletRequest request) {
-		Utente utente = utenteService.findByUsername(request.getUserPrincipal().getName());
-		Tavolo tavoloPerGiocare = utente.getTavolo();
-
-		if (utente.getTavolo() == null)
-			return "index";
-
-		model.addAttribute("show_tavolo_attr", tavoloPerGiocare);
-		return "gioca/partita";
 	}
 
 }

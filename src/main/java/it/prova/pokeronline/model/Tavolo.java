@@ -43,28 +43,34 @@ public class Tavolo {
 		super();
 	}
 
-	public Tavolo(String denominazione, Date dateCreated, Integer esperienzaMin, Integer cifraMin,
-			Utente utenteCreatore) {
+	public Tavolo(String denominazione, Date dateCreated, int esperienzaMin, int cifraMin) {
 		super();
 		this.denominazione = denominazione;
 		this.dateCreated = dateCreated;
 		this.esperienzaMin = esperienzaMin;
 		this.cifraMin = cifraMin;
-		this. utenteCreatore =  utenteCreatore;
 	}
-	
 
-	public Tavolo(Long id, String denominazione, Date dateCreated, Integer esperienzaMin, Integer cifraMin,
-			Utente  utenteCreatore) {
+	public Tavolo(Long id, String denominazione, Date dateCreated, int esperienzaMin, int cifraMin,
+			Utente utenteCreatore, Set<Utente> giocatori) {
 		super();
 		this.id = id;
 		this.denominazione = denominazione;
 		this.dateCreated = dateCreated;
 		this.esperienzaMin = esperienzaMin;
 		this.cifraMin = cifraMin;
-		this. utenteCreatore =  utenteCreatore;
+		this.utenteCreatore = utenteCreatore;
+		this.giocatori = giocatori;
 	}
 
+	public Tavolo(Long id, String denominazione, Date dateCreated, int esperienzaMin, int cifraMin) {
+		super();
+		this.id = id;
+		this.denominazione = denominazione;
+		this.dateCreated = dateCreated;
+		this.esperienzaMin = esperienzaMin;
+		this.cifraMin = cifraMin;
+	}
 
 	public Long getId() {
 		return id;

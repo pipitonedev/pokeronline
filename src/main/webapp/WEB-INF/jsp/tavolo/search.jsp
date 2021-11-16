@@ -38,54 +38,51 @@
 				    </div>
 				    <div class='card-body'>
 		
-							<form method="post" action="list" class="row g-3">
+							<form method="post" action="${pageContext.request.contextPath }/tavolo/list" class="row g-3">
 							
 								<div class="col-md-6">
 									<label for="denominazione" class="form-label">Denominazione</label>
-									<input type="text" name="denominazione" id="denominazione" class="form-control" placeholder="Inserire denominazione" value="${search_gestione_tavolo_attr.denominazione}">
+									<input type="text" name="denominazione" id="denominazione" class="form-control" placeholder="Inserire denominazione" >
 								</div>
 								
 								<div class="col-md-6">
 									<label for="dateCreated" class="form-label">Data di Creazione</label>
 	                        		<input class="form-control" id="dateCreated" type="date" placeholder="dd/MM/yy"
-	                            		title="formato : gg/mm/aaaa"  name="dateCreated" value="${search_gestione_tavolo_attr.dateCreated}">
+	                            		title="formato : gg/mm/aaaa"  name="dateCreated" >
 								</div>
 								
 								<div class="col-md-6">
 									<label for="cifraMin" class="form-label">Cifra minima</label>
-									<input type="number" name="cifraMin" id="cifraMin" class="form-control" placeholder="Inserire cifra minima" value="${search_gestione_tavolo_attr.cifraMin}">
+									<input type="number" name="cifraMin" id="cifraMin" class="form-control" placeholder="Inserire cifra minima" >
 								</div>
 								
 								<div class="col-md-6">
-									<label for="esperienzaMin" class="form-label">Esperienza minima</label>
-									<input type="number" class="form-control" name="esperienzaMin" id="esperienzaMin" placeholder="Inserire esperienza minima" value="${search_gestione_tavolo_attr.esperienzaMin}">
+									<label for="esperienzaMinima" class="form-label">Esperienza minima</label>
+									<input type="number" class="form-control" name="esperienzaMinima" id="esperienzaMinima" placeholder="Inserire esperienza minima" >
 								</div>
 								
- 										<div class="col-md-6">
+									<div class="col-md-6">
 										<label for="utenteCreatoreSearchInput" class="form-label">Creatore tavolo:</label>
 										<input class="form-control " type="text" id="utenteCreatoreInputId"
 												name="utenteCreatoreInput" >
 										<input type="hidden" name="utenteCreatore.id" id="utenteCreatoreId" >
 									</div>
-									
-									<div class="col-md-6">
-									<label for="utenteGiocatoreSearchInput" class="form-label">Giocatori:</label>
-									<input class="form-control " type="text" id="utenteGiocatoreSearchInput"
-											name="utenteGiocatoreSearchInput">
-									<input type="hidden" name="giocatori.id" id="utenteGiocatoreId">
+								
+								<div class="col-md-6">
+									<label for="giocatoreCercatoSearchInput" class="form-label">Giocatori:</label>
+									<input class="form-control " type="text" id="giocatoreCercatoInputId"
+											name="giocatoreCercatoInput" >
+									<input type="hidden" name="giocatoreCercato.id" id="giocatoreCercatoId" >
 								</div>
-								
-								
-									
-								<div class="col-12">
-									<button type="submit" name="submit" value="submit" id="submit" class="btn btn-success">Conferma</button>
-									<input class="btn btn-outline-warning" type="reset" value="Ripulisci">
-									<a class="btn btn-outline-primary ml-2" href="${pageContext.request.contextPath }/tavolo/insert">Add New</a>
-								</div>
-								
-							</form>
-							
-							<script>
+	
+							<div class="col-12">	
+								<button type="submit" name="submit" value="submit" id="submit" class="btn btn-primary">Conferma</button>
+							</div>
+										
+						</form>
+						
+						
+						<script>
 								$("#utenteCreatoreInputId").autocomplete({
 									 source: function(request, response) {
 									        $.ajax({
@@ -118,9 +115,10 @@
 								    }
 								});
 							</script>
-							
-							<script>
-								$("#utenteGiocatoreSearchInput").autocomplete({
+						
+						
+					<script>
+								$("#giocatoreCercatoInputId").autocomplete({
 									 source: function(request, response) {
 									        $.ajax({
 									            url: "${pageContext.request.contextPath }/utente/searchUtentiAjax",
@@ -140,21 +138,18 @@
 									    },
 									//quando seleziono la voce nel campo deve valorizzarsi la descrizione
 								    focus: function(event, ui) {
-								        $('#utenteGiocatoreSearchInput').val(ui.item.label)
+								        $("#giocatoreCercatoInputId").val(ui.item.label)
 								        return false
 								    },
 								    minLength: 2,
 								    //quando seleziono la voce nel campo hidden deve valorizzarsi l'id
 								    select: function( event, ui ) {
-								    	$('#utenteGiocatoreId').val(ui.item.value);
+								    	$('#giocatoreCercatoId').val(ui.item.value);
 								    	//console.log($('#registaId').val())
 								        return false;
 								    }
 								});
 							</script>
-						
-						
-						
 							<!-- end card-body -->			   
 				    	</div>
 				

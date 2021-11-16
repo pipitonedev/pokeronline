@@ -43,9 +43,9 @@
 			      </label>
 			    
 			    </div>
-			    <button class="w-100 btn btn-lg btn-primary" type="submit">Sign in</button>
+			    <button class="w-100 btn btn-lg btn-primary" type="submit">Accedi</button>
 			  	<br> &nbsp;&nbsp;
-			    <a class="w-100 btn btn-lg btn-outline-primary" type="submit"  href="${pageContext.request.contextPath}/signup">Sign up</a>
+			    <a class="w-100 btn btn-lg btn-outline-primary" type="submit"  href="${pageContext.request.contextPath}/signup">Registrati</a>
 			    
 			    <p class="mt-5 mb-3 text-muted">&copy; 2020-2021</p>
 			  

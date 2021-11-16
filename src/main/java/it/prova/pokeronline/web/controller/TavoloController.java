@@ -46,15 +46,14 @@ public class TavoloController {
 	}
 
 	@GetMapping("/search")
-	public String searchTavolo(ModelMap model) {
-		model.addAttribute("search_tavolo_attr", new TavoloDTO());
+	public String searchTavolo() {
 		return "tavolo/search";
 	}
 
 	@PostMapping("/list")
-	public String listTavoli(TavoloDTO tavoloExample, ModelMap model) {
-		
+	public String listTavoli(TavoloDTO tavoloExample, Model model) {
 		List<Tavolo> tavoli = tavoloService.findByExampleGenerico(tavoloExample);
+		
 		model.addAttribute("tavolo_list_attribute", TavoloDTO.createTavoloDTOListFromModelList(tavoli));
 		return "tavolo/listagenerica";
 	}
