@@ -65,13 +65,10 @@
 				        <h1 class="display-5 fw-bold">Benvenuto al Poker Online!</h1>
 				        <a class="btn btn-success btn-lg" href="${pageContext.request.contextPath}/tavolo/search">Cerca Un tavolo</a>
 				        
-				         <div class="p-5" style="    display: flex;
-												    justify-content: center;
-												    align-items: baseline;
-												    flex-wrap: wrap;
-												    flex-direction: row;">
-				    <h2> Esperienza Utente:</h2>&nbsp;<h2 id="exp" style="margin: 0; color: red"></h2>&nbsp;&nbsp;
-				     <h2>  Credito Utente: </h2>&nbsp;<h2 id="credito" style="margin: 0; color: orange"></h2>
+				         <div class="p-5" >
+				         <h2>  Credito Accumulato: </h2>&nbsp;<h2 id="credito" style="margin: 0; color: orange"></h2>
+				    	<h2> Esperienza Utente:</h2>&nbsp;<h2 id="exp" style="margin: 0; color: red"></h2>&nbsp;&nbsp;
+				     
 				      </div>
 				      </div>
 			    </div>

@@ -10,5 +10,7 @@ public interface CustomTavoloRepository {
 	List<Tavolo> findByExampleTavoli(TavoloDTO example, Long id);
 	
 	List<Tavolo> findByExample(TavoloDTO example);
+	
+	List<Tavolo> findByExampleGenerico(TavoloDTO example);
 
 }

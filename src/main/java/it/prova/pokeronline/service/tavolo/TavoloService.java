@@ -25,5 +25,7 @@ public interface TavoloService {
 	public Tavolo caricaSingoloTavoloConGiocatori(Long id);
 	
 	public void rimuoviById(Long id);
+	
+	public List<Tavolo> findByExampleGenerico(TavoloDTO example);
 
 }

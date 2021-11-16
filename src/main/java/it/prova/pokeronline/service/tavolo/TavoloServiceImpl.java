@@ -74,4 +74,9 @@ public class TavoloServiceImpl implements TavoloService {
 		
 	}
 
+	@Transactional(readOnly = true)
+	public List<Tavolo> findByExampleGenerico(TavoloDTO example) {
+		return repository.findByExampleGenerico(example);
+	}
+
 }

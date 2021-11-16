@@ -110,4 +110,67 @@ public class CustomTavoloRepositoryImpl implements CustomTavoloRepository {
 		return typedQuery.getResultList();
 	}
 
+	@Override
+	public List<Tavolo> findByExampleGenerico(TavoloDTO example) {
+		Map<String, Object> paramaterMap = new HashMap<String, Object>();
+		List<String> whereClauses = new ArrayList<String>();
+		String gioc = "";
+
+		if (example.getEsperienzaMin() == null)
+			example.setEsperienzaMin(0);
+
+		if (example.getCifraMin() == null)
+			example.setCifraMin(0);
+
+		StringBuilder queryBuilder = new StringBuilder(
+				"select distinct r from Tavolo r join fetch r.utenteCreatore uc ");
+
+		if (StringUtils.isNotEmpty(example.getDenominazione())) {
+			whereClauses.add(" r.denominazione  like :denominazione ");
+			paramaterMap.put("denominazione", "%" + example.getDenominazione() + "%");
+		}
+		if (example.getDateCreated() != null) {
+			whereClauses.add(" r.dateCreated >= :dateCreated ");
+			paramaterMap.put("dateCreated", example.getDateCreated());
+		}
+		if (example.getEsperienzaMin() >= 0) {
+			whereClauses.add(" r.esperienzaMin >= :esperienzaMin ");
+			paramaterMap.put("esperienzaMin",example.getEsperienzaMin());
+		}
+		if (example.getCifraMin() >= 0) {
+			whereClauses.add(" r.cifraMin >= :cifraMin ");
+			paramaterMap.put("cifraMin", example.getCifraMin());
+		}
+		if (example.getUtenteCreatore() != null && example.getUtenteCreatore().getId() != null) {
+			whereClauses.add(" uc.id = :idUtenteCreatore ");
+			paramaterMap.put("idUtenteCreatore", example.getUtenteCreatore().getId());
+		}
+
+		if (example.getGiocatori() != null && example.getGiocatori().size() > 0) {
+			int i = 0;
+			for (Utente giocatore : example.getGiocatori()) {
+				
+				if(giocatore.getId() != null) {
+					queryBuilder.append(" join fetch r.giocatori g ");
+					if (i == 0)
+						gioc += " g.id = " + giocatore.getId();
+					else
+						gioc += " or g.id = " + giocatore.getId();
+					i++;
+				}
+			}
+		}
+
+		queryBuilder.append(" where r.id = r.id ");
+		queryBuilder.append(!whereClauses.isEmpty()?" and ":"");
+		queryBuilder.append(StringUtils.join(whereClauses, " and "));
+		TypedQuery<Tavolo> typedQuery = entityManager.createQuery(queryBuilder.toString(), Tavolo.class);
+
+		for (String key : paramaterMap.keySet()) {
+			typedQuery.setParameter(key, paramaterMap.get(key));
+		}
+
+		return typedQuery.getResultList();
+
+	}
 }
