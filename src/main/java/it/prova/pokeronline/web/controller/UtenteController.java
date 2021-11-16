@@ -210,37 +210,7 @@ public class UtenteController {
 		return new Gson().toJson(ja);
 	}
 	
-	@GetMapping("/autoInsert")
-	public String autoInsert(Model model) {
-		model.addAttribute("mappaRuoliConSelezionati_attr", UtilityForm
-				.buildCheckedRolesForPages(RuoloDTO.createRuoloDTOListFromModelList(ruoloService.listAll()), null));
-		model.addAttribute("insert_utente_attr", new UtenteDTO());
-		return "/utente/registrati";
-	}
 	
-	@PostMapping("/registrazione")
-	public String registrazione(
-			@Validated({ ValidationWithPassword.class,
-					ValidationNoPassword.class }) @ModelAttribute("insert_utente_attr") UtenteDTO utenteDTO,
-			BindingResult result, Model model, RedirectAttributes redirectAttrs) {
-
-		if (!result.hasFieldErrors("password") && !utenteDTO.getPassword().equals(utenteDTO.getConfermaPassword()))
-			result.rejectValue("confermaPassword", "password.diverse");
-
-		if (result.hasErrors()) {
-			model.addAttribute("mappaRuoliConSelezionati_attr", UtilityForm.buildCheckedRolesForPages(
-					RuoloDTO.createRuoloDTOListFromModelList(ruoloService.listAll()), utenteDTO.getRuoliIds()));
-			return "/utente/registrati";
-		}
-
-		Long[] id = { 3L };
-		utenteDTO.setRuoliIds(id);
-
-		utenteService.inserisciNuovo(utenteDTO.buildUtenteModel(true));
-
-		redirectAttrs.addFlashAttribute("successMessage", "Operazione eseguita correttamente");
-		return "redirect:login";
-	}
 	
 	private String buildJsonResponseSingleUser(Utente utente) {
 		JsonArray ja = new JsonArray();

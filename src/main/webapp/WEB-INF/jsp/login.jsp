@@ -37,16 +37,17 @@
 			      <input type="password" name="password" class="form-control" id="inputPassword" placeholder="Password">
 			      <label for="inputPassword">Password</label>
 			    </div>
-			
-			      <div class="checkbox mb-3">
+			 <div class="checkbox mb-3">
 			      <label>
 			        <input type="checkbox" value="remember-me"> Remember me
 			      </label>
+			    
 			    </div>
 			    <button class="w-100 btn btn-lg btn-primary" type="submit">Sign in</button>
-			    <a class="nav-link" href="${pageContext.request.contextPath}/utente/autoInsert"
-						tabindex="-1" aria-disabled="true" style="color:black!important">Registrati</a>
-			    <p class="mt-5 mb-3 text-muted">&copy; 2017-2021</p>
+			  	<br> &nbsp;&nbsp;
+			    <a class="w-100 btn btn-lg btn-outline-primary" type="submit"  href="${pageContext.request.contextPath}/signup">Sign up</a>
+			    
+			    <p class="mt-5 mb-3 text-muted">&copy; 2020-2021</p>
 			  
 			  
 			  

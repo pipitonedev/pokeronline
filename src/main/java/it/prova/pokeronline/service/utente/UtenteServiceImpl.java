@@ -11,12 +11,16 @@ import org.springframework.transaction.annotation.Transactional;
 import it.prova.pokeronline.model.StatoUtente;
 import it.prova.pokeronline.model.Utente;
 import it.prova.pokeronline.repository.utente.UtenteRepository;
+import it.prova.pokeronline.service.ruolo.RuoloService;
 
 @Service
 public class UtenteServiceImpl implements UtenteService {
 	
 	@Autowired
 	private UtenteRepository repository;
+	
+	@Autowired
+	private RuoloService ruoloService;
 
 	@Autowired
 	private PasswordEncoder passwordEncoder;
@@ -128,4 +132,20 @@ public class UtenteServiceImpl implements UtenteService {
 		return repository.findByCognomeIgnoreCaseContainingOrNomeIgnoreCaseContainingOrderByNomeAsc(term, term);
 	}
 
+	@Override
+	public void signUp(Utente utenteInstance) {
+		utenteInstance.setStato(StatoUtente.CREATO);
+		utenteInstance.setPassword(passwordEncoder.encode(utenteInstance.getPassword())); 
+		utenteInstance.setDateCreated(new Date());
+		utenteInstance.getRuoli()
+		.add(ruoloService.cercaPerDescrizioneECodice("Classic Player", "ROLE_PLAYER"));
+		repository.save(utenteInstance);
+		
+	}
+
+	@Override
+	@Transactional(readOnly = true)
+    public boolean usernameExist(String username) {
+        return repository.findByUsername(username) != null;
+    }
 }

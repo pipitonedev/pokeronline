@@ -13,9 +13,11 @@
 		    }
 		</style>
 	   
-	   <title>Inserisci Nuovo Elemento</title>
+	   <title>Registrati</title>
 	 </head>
 	   <body class="d-flex flex-column h-100">
+	   
+	   <link href="assets/css/signin.css" rel="stylesheet">
 	   
 	 
 			<!-- Begin page content -->
@@ -37,14 +39,14 @@
 			  
 			  <div class='card'>
 				    <div class='card-header'>
-				        <h5>Inserisci nuovo elemento</h5> 
+				        <h5>Form di registrazione</h5> 
 				    </div>
 				    <div class='card-body'>
 		
 							<h6 class="card-title">I campi con <span class="text-danger">*</span> sono obbligatori</h6>
 		
 		
-							<form:form modelAttribute="insert_utente_attr" method="post" action="${pageContext.request.contextPath}/utente/registrazione" novalidate="novalidate" class="row g-3">
+							<form:form modelAttribute="insert_utente_attr" method="post" action="${pageContext.request.contextPath}/signup/registra" novalidate="novalidate" class="row g-3">
 					
 							
 								<div class="col-md-6">
